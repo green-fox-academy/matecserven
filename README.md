@@ -8,4 +8,4 @@
 
 [My website`s repository](https://github.com/matecserven/mywebsite)
 
-[My website](http://matecserven.github.io)
+[My website](https://matecserven.github.io)
