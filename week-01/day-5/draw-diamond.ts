@@ -2,7 +2,7 @@
 
 export { }
 
-let lineCount: number = 15;
+let lineCount: number = 7;
 let linePyr: string = '*';
 let lineSpace: string = '';
 let lineSpaceCount: number = 1;
@@ -24,7 +24,7 @@ for (let j: number = countBot + 1; j <= lineCount; j++) {
     linePyr = '*';
     while (countBot + 1 < lineCount) {
         linePyr += '**';
-        countBot++
+        countBot++;
     }
     console.log(lineSpace + linePyr);
     countBot = j;
