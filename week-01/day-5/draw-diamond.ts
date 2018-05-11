@@ -10,7 +10,7 @@ let countBot: number = 0;
  
 for (let k: number = 1; k <= lineCount / 2 ; k++) {
     lineSpaceCount = k;
-    while(lineSpaceCount < lineCount / 2) {
+    while (lineSpaceCount < lineCount / 2) {
         lineSpace += ' ';
         lineSpaceCount++;
     }
@@ -22,7 +22,7 @@ for (let k: number = 1; k <= lineCount / 2 ; k++) {
 
 for (let j: number = countBot + 1; j <= lineCount; j++) {
     linePyr = '*';
-    while (countBot+1 < lineCount) {
+    while (countBot + 1 < lineCount) {
         linePyr += '**';
         countBot++
     }
