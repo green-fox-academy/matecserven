@@ -2,7 +2,7 @@
 
 export{}
 
-let lineCount: number = 6;
+let lineCount: number = 9;
 let squareLine: string = '';
 let squareMiddle1: string = '';
 let squareMiddle2: string = '';
@@ -14,20 +14,16 @@ for (let k: number = 0; k < lineCount; k++) {
     squareLine += '#';
 }
 console.log(squareLine);
-/*
-for (let j: number = 2; j < lineCount; j++) {
-    squareMiddle += ' ';
-}
-*/
+
 for (let k: number = 2; k < lineCount; k++) {
     squareMiddle1 = '';
     squareMiddle2 = '';
-    j = k + 2;
+    j = lineCount - k;
     l = k - 1;
     
-    while (j > lineCount - 2) {
+    while (j != lineCount - 2) {
         squareMiddle1 += ' ';
-        j--;
+        j++;
     }
 
     while (l < lineCount - 2) {
