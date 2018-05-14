@@ -6,7 +6,7 @@ export{}
 // -  Double all the strings in the array, use a built in array method instead of a loop
 // It should print: ['GinGin', 'WhiskeyWhiskey', 'WineWine', 'BeerBeer']`
 
-let drinks = ['Gin', 'Whiskey', 'Wine', 'Beer'];
+let drinks: string[] = ['Gin', 'Whiskey', 'Wine', 'Beer'];
 
 drinks = drinks.map((x) => {
   x += x;

@@ -9,8 +9,7 @@ export{}
 
 //let name: string = 'Greenfox';
 
-function greet(name: string = 'Greenfox') {
-
+function greet(name: string = 'Greenfox'): void {
   console.log(`Hello ${name}`);
 }
 
