@@ -1,5 +1,5 @@
 'use strict';
-export{}
+export { }
 // Things are a little bit messed up
 // Your job is to decode the notSoCrypticMessage by using the hashmap as a look up table
 // Assemble the fragments into the out variable
@@ -19,7 +19,7 @@ let hashmap = {
 
 notSoCrypticMessage.forEach(value => {
   Object.keys(hashmap).forEach(key => {
-    if(key === `${value}`) {
+    if (key === `${value}`) {
       out += `${hashmap[value]}`;
     }
   });
