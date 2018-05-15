@@ -9,6 +9,6 @@
 //      - Diablo
 let todoText: string = ' - Buy milk\n';
 
-todoText = `My todo:\n ${todoText.concat('  - Download games\n','     - Diablo')}`;
+todoText = `My todo:\n ${todoText.concat('  - Download games\n', '     - Diablo')}`;
 
 console.log(todoText);

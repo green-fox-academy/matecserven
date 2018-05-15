@@ -7,7 +7,7 @@ const numbers: number[] = [1, 2, 3, 4, 5, 6, 8];
 function containsSeven(input: number[]): string {
   let out: string = 'Noooooo';
   input.forEach(value => {
-    if(value === 7) {
+    if (value === 7) {
       out = 'Hoorray';
     }
   });
@@ -16,7 +16,7 @@ function containsSeven(input: number[]): string {
 
 function containsSeven2(input: number[]): string {
   let out: string = 'Noooooo';
-  if(input.some(value => (value === 7))) {
+  if (input.some(value => (value === 7))) {
     out = 'Hoorray';
   };
   return out;

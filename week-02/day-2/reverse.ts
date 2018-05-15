@@ -1,10 +1,10 @@
 'use strict';
-export{}
+export { }
 // Create a function that can reverse a string, which is passed as the parameter
 // Use it on this reversed string to check it!
 function reverse(input: string): string {
   let correct: string = '';
-  for(let i: number = 0; i <= input.length; i++) {
+  for (let i: number = 0; i <= input.length; i++) {
     correct += input.charAt(input.length - i);
   };
   return correct;

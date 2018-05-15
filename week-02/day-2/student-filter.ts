@@ -1,5 +1,5 @@
 'use strict';
-export{}
+export { }
 
 let students: any[] = [
   { name: 'Rezso', age: 9.5, candies: 2 },
@@ -14,7 +14,7 @@ let students: any[] = [
 
 function candy4(list: any[]): any {
   list.forEach(students => {
-    if(students.candies > 4) {
+    if (students.candies > 4) {
       console.log(`${students.name}: ${students.candies}`);
     }
   });

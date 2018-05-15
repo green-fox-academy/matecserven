@@ -10,9 +10,9 @@ function makingMatches(array1: string[], array2: string[]): string[] {
   if (girls >= boys) {
     count = boys.length;
   } else {
-    count = girls.length ;
+    count = girls.length;
   }
-  for(let i: number = 0; i < count; i++) {
+  for (let i: number = 0; i < count; i++) {
     MM = MM.concat(array1.shift()).concat(array2.shift());
   }
   return MM;

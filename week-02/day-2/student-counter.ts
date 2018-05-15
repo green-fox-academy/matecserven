@@ -1,5 +1,5 @@
 'use strict';
-export{}
+export { }
 
 let students: any[] = [
   { name: 'Teodor', age: 3, candies: 2 },
@@ -22,11 +22,11 @@ candy(students);
 // - Sum of the age of people who have lass than 5 candies
 function sumAge(list: any[]): number {
   let age: number = 0;
-    list.forEach(students => {
-      if(students.candies < 5) {
-        age += students.age;
-      }
-    });
+  list.forEach(students => {
+    if (students.candies < 5) {
+      age += students.age;
+    }
+  });
   console.log(age);
   return age;
 }

@@ -11,10 +11,10 @@ let shopItems: any[] = ['Cupcake', 2, 'Brownie', false];
 function sweets(input: any[]): string[] {
   let out: string[] = [];
   input.forEach(value => {
-    if(value === 2) {
+    if (value === 2) {
       value = 'Croissant';
       out.push(value);
-    } else if(!value) {
+    } else if (!value) {
       value = 'Ice cream';
       out.push(value);
     } else {

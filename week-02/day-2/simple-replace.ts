@@ -1,5 +1,5 @@
 'use strict';
-export{}
+export { }
 
 let example: string = 'In a dishwasher far far away';
 
