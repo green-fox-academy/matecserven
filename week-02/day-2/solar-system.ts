@@ -7,7 +7,7 @@
 let planetList: string[] = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Uranus', 'Neptune'];
 
 function putSaturn(array: string[]): string[] {
-  array.push('Saturn');
+  array.splice(5, 0, 'Saturn');
   return planetList;
 }
 
