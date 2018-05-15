@@ -26,7 +26,8 @@ function sumAge(list: any[]): number {
       if(students.candies < 5) {
         age += students.age;
       }
-    })
+    });
+  console.log(age);
   return age;
 }
-console.log(sumAge(students));  
+sumAge(students);  
