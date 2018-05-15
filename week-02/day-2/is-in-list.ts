@@ -5,11 +5,9 @@
 let listOfNumbers: number[] = [2, 4, 6, 8, 10, 12, 14, 16];
 
 function checkNums(input: number[]): boolean {
-  let op: boolean = false;
-  if(-1 <
-  input.indexOf(4) && input.indexOf(8) && 
-  input.indexOf(12) && input.indexOf(16)) {op = true;}
-  return op;
+  return (-1 <
+    (input.indexOf(4) && input.indexOf(8) && 
+    input.indexOf(12) && input.indexOf(16)));
 }
 
 console.log(checkNums(listOfNumbers));
