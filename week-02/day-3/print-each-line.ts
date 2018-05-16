@@ -9,14 +9,14 @@ declare function require(path: string): any;
 let fs = require('fs');
 let charEncoding = 'utf-8'
 
-function readFromFile(filePath: string) {
+function readFromFile(filePath: string): string {
   try {
     let fileContent = fs.readFileSync(filePath, charEncoding);
-    console.log(fileContent);
+    return fileContent;
   } catch (error) {
-    console.log(`Unable to read file: ${filePath}`);
+    return (`Unable to read file: ${filePath}`);
   }
 }
 
-readFromFile('my-file.txt');
-readFromFile('my-fil.txt');
+console.log(readFromFile('my-file.txt'));
+console.log(readFromFile('my-fil.txt'));
