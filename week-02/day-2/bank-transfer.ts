@@ -22,20 +22,27 @@ getNameAndBalance(accounts);
 //
 // Log "404 - account not found" if any of the account numbers don't exist to the console.
 function transferAmount(input: any[], from: number, to: number, amount: number): void {
- /*  input.forEach(accounts => {
+  let isGood: boolean = false;
+  let index: number;
+  let index2: number;
+  input.forEach(function (accounts, i) {
     if (from === accounts.account_number) {
-      
-      input.forEach(accounts => {
+      index = i;
+      input.forEach(function (accounts, i) {
         if (to === accounts.account_number) {
-          console.log('OK');
-        } else {
-          console.log('404 - account not found');
+          index2 = i;
+          isGood = true;
         }
       });
-    } else {
-      console.log('404 - account not found');
     }
-  }); */
+  });
+  if (isGood) {
+    accounts[index].balance -= amount;
+    accounts[index2].balance += amount;
+    console.log(input);
+  } else {
+    console.log('404 - account not found');
+  }
 }
 transferAmount(accounts, 43546731, 23456311, 500.0);
 //After printing the "accounts" it should look like:
