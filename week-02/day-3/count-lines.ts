@@ -12,7 +12,7 @@ let charEncoding = 'utf-8'
 
 function countLines(filePath: string): number {
   try {
-    return fs.readFileSync(filePath, charEncoding).split('\n').length;
+    return fs.readFileSync(filePath, charEncoding).split(`\n\r`).length;
   } catch (error) {
     return 0;
   }
