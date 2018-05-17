@@ -8,7 +8,7 @@ const ctx = canvas.getContext('2d');
 // The x and y coordinates of the line's starting point
 // and draws a line from that point to the center of the canvas
 // Draw 3 lines with that function. Use loop for that.
-function drawLine(x: number, y: number) {
+function drawLine(x: number, y: number): void {
   for (let i: number = 0; i <= 100; i += 50) {
     ctx.beginPath();
     ctx.moveTo(x + i, y);
