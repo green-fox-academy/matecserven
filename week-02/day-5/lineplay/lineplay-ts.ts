@@ -3,7 +3,7 @@
 const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
-function drawLine(x: number): void {
+function draw(x: number): void {
   ctx.strokeStyle = 'blue';
   ctx.beginPath();
   ctx.moveTo(x, 10);
@@ -17,10 +17,7 @@ function drawLine(x: number): void {
   ctx.stroke();
 }
 
-function draw(size: number) {
-  for (let i: number = 1; i < canvas.width / size; i++) {
-    drawLine(size * i);
-  }
+let y: number = 20; //Set size between lines
+for (let i: number = 1; i < canvas.width / y; i++) {
+  draw(i * y);
 }
-
-draw(20);
