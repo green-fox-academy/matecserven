@@ -1,15 +1,15 @@
 'use strict';
 export { }
 
-function change(input: string, index: number = 0): string {
+function change(input: string): string {
   let out: string = '';
-  if (index === input.length) {
+  if (input.length === 0) {
     return out;
   }
-  if (input.charAt(index) === 'x') {
-    return out.concat('y').concat(change(input, index + 1));
+  if (input.charAt(0) === 'x') {
+    return out.concat('y').concat(change(input.slice(1)));
   } else {
-    return out.concat(input.charAt(index)).concat(change(input, index + 1));
+    return out.concat(input.charAt(0)).concat(change(input.slice(1)));
   }
 }
 
