@@ -7,7 +7,7 @@ function seperate(input: string): string {
     return out;
   }
   if (input.charAt(0) !== ' ' && input.charAt(1) !== ' ') {
-    return out.concat(`${input.charAt(0)} `).concat(seperate(input.slice(1)));
+    return out.concat(`${input.charAt(0)}*`).concat(seperate(input.slice(1)));
   } else {
     return out.concat(input.charAt(0)).concat(seperate(input.slice(1)));
   }
