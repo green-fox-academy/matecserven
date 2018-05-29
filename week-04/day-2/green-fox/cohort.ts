@@ -5,9 +5,9 @@ import { Student } from './student';
 import { Mentor } from './mentor';
 
 export class Cohort {
-  name: string;
-  students: Student[];
-  mentors: Mentor[];
+  protected name: string;
+  protected students: Student[];
+  protected mentors: Mentor[];
 
   constructor(name: string) {
     this.name = name;
