@@ -9,7 +9,7 @@ export{}
 let numList: number[] = [1, 2, 3, 8, 5, 6];
 
 numList = numList.map(x => {
-  if (x == 8) {
+  if (x === 8) {
     x = 4;
   } 
   return x;

@@ -14,11 +14,11 @@ function drawSquare(x: number): void {
   ctx.fillRect(300 - x / 2, 200 - x / 2, x, x);
 }
 
-ctx.fillStyle = "blue";
+ctx.fillStyle = 'blue';
 drawSquare(200);
 
-ctx.fillStyle = "red";
+ctx.fillStyle = 'red';
 drawSquare(150);
 
-ctx.fillStyle = "green";
+ctx.fillStyle = 'green';
 drawSquare(100);

@@ -18,11 +18,7 @@ let hashmap = {
 };
 
 notSoCrypticMessage.forEach(value => {
-  Object.keys(hashmap).forEach(key => {
-    if (key === `${value}`) {
-      out += `${hashmap[value]}`;
-    }
-  });
+  out += hashmap[value];
 });
 
 console.log(out);
