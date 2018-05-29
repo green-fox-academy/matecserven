@@ -2,11 +2,11 @@
 
 import { Aircraft } from './aircraft';
 
-export class Carrier{
-  HP: number;
-  aircraftStore: any[];
-  ammoStore: number;
-  ammoNeeded: number;
+export class Carrier {
+  protected HP: number;
+  protected aircraftStore: any[];
+  protected ammoStore: number;
+  protected ammoNeeded: number;
 
   constructor(value: number, ammo: number) {
     this.HP = value;
@@ -16,11 +16,18 @@ export class Carrier{
   }
 
   add(model: string): void {
-    this.aircraftStore.push(new Aircraft(model));
-    if (model === 'F35') {
-      this.ammoNeeded += 12;
-    } else {
-      this.ammoNeeded += 8;
+    try {
+      if (model === 'F35') {
+        this.ammoNeeded += 12;
+        this.aircraftStore.push(new Aircraft(model));
+      } else if (model === 'F16') {
+        this.ammoNeeded += 8;
+        this.aircraftStore.push(new Aircraft(model));
+      } else {
+        throw new Error;
+      }
+    } catch (error) {
+      console.log('Invalid model type!!!');
     }
   }
 
@@ -48,13 +55,13 @@ export class Carrier{
     }
   }
 
-  fight(enemy: Carrier) {
+  fight(enemy: Carrier): void {
     this.aircraftStore.forEach(plane => {
       enemy.HP -= plane.fight();
     });
   }
 
-  getStatus() {
+  getStatus(): void {
     if (this.HP <= 0) {
       console.log(`It's dead Jim :(`);
     } else {
