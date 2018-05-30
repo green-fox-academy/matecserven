@@ -1,6 +1,6 @@
 'use strict';
 
-abstract class Animal {
+export abstract class Animal {
   protected name: string;
   protected age: number;
   protected gender: string;
@@ -35,7 +35,7 @@ class Mammal extends Animal {
   }
 }
 
-class Bird extends Animal {
+export class Bird extends Animal {
   constructor(name: string, gender?: string, age?: number) {
     super();
     this.name = name;
