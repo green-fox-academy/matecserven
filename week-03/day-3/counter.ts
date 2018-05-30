@@ -9,15 +9,15 @@ export class Counter {
     this.initialValue = input;
   }
 
-  add(x: number = 1) {
-    this.count += x;
+  add(addValue: number = 1): void {
+    this.count += addValue;
   }
 
-  get() {
+  get(): string {
     return `${this.count}`;
   }
 
-  reset() {
+  reset(): void {
     this.count = this.initialValue;
   }
 }
