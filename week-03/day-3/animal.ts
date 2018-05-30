@@ -9,15 +9,15 @@ export class animal {
     this.thirst = 50;
   }
 
-  eat() {
+  eat(): void {
     this.hunger--;
   }
 
-  drink() {
+  drink(): void {
     this.thirst--;
   }
 
-  play() {
+  play(): void {
     this.hunger++;
     this.thirst++;
   }
