@@ -1,12 +1,12 @@
 'use strict';
 export { }
 
-function toPower(x: number, n: number): number {
+function toPower(toBePowered: number, n: number): number {
   if (n === 1) {
-    return x;
+    return toBePowered;
   }
   n--;
-  return x * toPower(x, n);
+  return toBePowered * toPower(toBePowered, n);
 }
 
 console.log(toPower(2, 10));
