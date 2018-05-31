@@ -15,7 +15,7 @@ test('is it equal', t => {
   let sum = new Sum();
   const numbers: number[] = [];
 
-  t.equal(sum.sum(numbers), 0);
+  t.equal(sum.sum(numbers), 'Not a number');
   t.end();
 });
 
@@ -38,14 +38,15 @@ test('is it equal', t => {
 test('is it equal', t => {
   let sum = new Sum();
   const numbers: number[] = [null];
-  t.equal(sum.sum(numbers), 0);
+
+  t.equal(sum.sum(numbers), 'Not a number');
   t.end();
 });
-/*
+
 test('is it equal', t => {
   let sum = new Sum();
-  const number: number[] = ['alma'];
-  t.equal(sum.sum(number), 'alma');
+  const string: string[] = ['alma'];
+
+  t.equal(sum.sum(string), 'Not a number');
   t.end();
 });
-*/
