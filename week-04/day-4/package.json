@@ -1,0 +1,16 @@
+{
+  "name": "day-4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/tape": "^4.2.32",
+    "tape": "^4.9.0"
+  },
+  "dependencies": {},
+  "description": ""
+}
