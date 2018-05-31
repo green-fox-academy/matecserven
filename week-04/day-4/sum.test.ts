@@ -9,4 +9,44 @@ test('is it equal', t => {
 
   t.equal(sum.sum(numbers), 15);
   t.end();
-})
+});
+
+test('is it equal', t => {
+  let sum = new Sum();
+  const numbers: number[] = [];
+
+  t.equal(sum.sum(numbers), 0);
+  t.end();
+});
+
+test('is it equal', t => {
+  let sum = new Sum();
+  const numbers: number[] = [1];
+
+  t.equal(sum.sum(numbers), 1);
+  t.end();
+});
+
+test('is it equal', t => {
+  let sum = new Sum();
+  const numbers: number[] = [1, 2, 3, 4, 5, 5, 5];
+
+  t.equal(sum.sum(numbers), 25);
+  t.end();
+});
+/*
+test('is it equal', t => {
+  let sum = new Sum();
+  const numbers: number[] = null;
+
+  t.equal(sum.sum(numbers), null);
+  t.end();
+});*/
+
+test('is it equal', t => {
+  let sum = new Sum();
+  const numbers: number[] = [1, 2, 3, 4, 5];
+
+  t.equal(sum.sum(numbers), 'alma');
+  t.end();
+});
