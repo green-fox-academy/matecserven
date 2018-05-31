@@ -1,23 +1,38 @@
 'use strict';
 
 export function add(a: number, b: number): number {
-  return 5;
+  return a + b;
 }
 
 export function maxOfThree(a: number, b: number, c: number): number {
   if (a > b) {
-    return a;
+    if (a > c) {
+      return a;
+    } else {
+      return c;
+    }
+  } else if (b > c) {
+    return b;
   } else {
     return c;
   }
-};
+}
 
 export function median(pool: number[]): number {
-  return pool[Math.floor((pool.length - 1) / 2)];
+  pool.sort(function (a, b) {
+    return a - b;
+  });
+
+  let half = Math.floor(pool.length / 2);
+  
+  if (pool.length % 2)
+    return pool[half];
+  else
+    return (pool[half - 1] + pool[half]) / 2.0;
 }
 
 export function isVowel(c: string): boolean {
-  return ['a', 'u', 'o', 'e', 'i'].some(letter =>
+  return ['a', 'u', 'o', 'e', 'i', 'A', 'U', 'O', 'E', 'I'].some(letter =>
     letter === c);
 }
 

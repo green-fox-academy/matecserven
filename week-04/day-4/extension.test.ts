@@ -63,8 +63,8 @@ test('breaking max of three: third', function (t: any): any {
   t.end();
 });
 
-test('median: four', function (t: any): any {
-  t.equal(median([1, 1, 1, 2, 2, 3, 3, 4, 4, 5]), 2.5);
+test('median: of 10', function (t: any): any {
+  t.equal(median([5, 1, 1, 2, 4, 3, 3, 4, 2, 1]), 2.5);
   t.end();
 });
 
