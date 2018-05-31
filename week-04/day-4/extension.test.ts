@@ -52,3 +52,28 @@ test('translate: lagopus', function (t: any): any {
   t.equal(translate('lagopus'), 'lavagovopuvus');
   t.end();
 });
+
+test('breaking add 2 + 5', function (t: any): any {
+  t.equal(add(2, 5), 7);
+  t.end();
+});
+
+test('breaking max of three: third', function (t: any): any {
+  t.equal(maxOfThree(2, 5, 3), 5);
+  t.end();
+});
+
+test('median: four', function (t: any): any {
+  t.equal(median([1, 1, 1, 2, 2, 3, 3, 4, 4, 5]), 2.5);
+  t.end();
+});
+
+test('is vowel: A', function (t: any): any {
+  t.ok(isVowel('A'));
+  t.end();
+});
+
+test('translate: bemutatkozik', function (t: any): any {
+  t.equal(translate('alma'), 'avalmava');
+  t.end();
+});
