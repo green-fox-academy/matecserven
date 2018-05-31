@@ -6,6 +6,6 @@ import * as test from 'tape';
 test('is it apple', t => {
   let actual = new Apple();
 
-  t.equal(actual.getApple(), 'apple');
+  t.equal(actual.getApple(), 'appl');
   t.end();
 });
