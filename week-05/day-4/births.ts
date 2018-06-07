@@ -20,11 +20,11 @@ function findBirth(content: string): string[] {
   let yearArray: string[] = [];
   let countYear: Object = {};
   
-  yearArray = content.match(/\d{4}/gm);
-  yearArray.forEach(value => {
-    countYear[value] ? countYear[value]++ 
+  content.match(/\d{4}/gm).forEach(value => {
+    countYear[value] ? countYear[value]++
       : countYear[value] = 1;
-  })
+  });
+ 
 
   let mostBirth: number = 0;
   for (let i in countYear) {
