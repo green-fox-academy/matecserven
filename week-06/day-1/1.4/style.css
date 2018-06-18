@@ -1,0 +1,29 @@
+html, body {
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.item {
+  width: 400px;
+}
+
+.green {
+  background-color: green;
+  flex: 1;
+}
+
+.yellow {
+  background-color: yellow;
+  flex: 2;
+  order: 2;
+}
+
+.purple {
+  background-color: purple;
+  flex: 1;
+}
