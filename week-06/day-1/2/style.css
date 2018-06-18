@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.yellow {
+  background-color: yellow;
+  height: 400px;
+  width: 600px;
+}
+
+.purple {
+  background-color: purple;
+  height: 150px;
+  width: 150px;
+  z-index: 2;
+  position: absolute;
+  align-self: center;
+}
