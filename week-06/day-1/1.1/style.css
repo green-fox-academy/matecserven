@@ -4,23 +4,19 @@
   flex-wrap: wrap;
 }
 
-.item-green {
+.item {
+  width: 200px;
+  height: 200px;
+}
+
+.green {
   background-color: green;
-  width: 200px;
-  height: 200px;
-  position: relative;
 }
 
-.item-yellow {
+.yellow {
   background-color: yellow;
-  width: 200px;
-  height: 200px;
-  position: relative;
 }
 
-.item-purple {
+.purple {
   background-color: purple;
-  width: 200px;
-  height: 200px;
-  position: relative;
 }

@@ -4,17 +4,17 @@
   height: 200px;
 }
 
-.item-green {
+.green {
   background-color: green;
   flex: 1 auto;
 }
 
-.item-yellow {
+.yellow {
   background-color: yellow;
   flex: 2 auto;
 }
 
-.item-purple {
+.purple {
   background-color: purple;
   flex: 1 auto;
 }
