@@ -12,29 +12,37 @@
 <body>
   <h1>Cocktails</h1>
   <ul class="alcList">
-    <li>
+    <li class="types">
       <a href="http://localhost:3000">ALL</a>
     </li>
     <% alcoholList.forEach(elem => { %>
-      <li>
+      <li class="types">
         <a href="http://localhost:3000/?alcohol=<%= elem %>">
           <%= elem.toUpperCase() %>
         </a>
       </li>
       <% }); %>
   </ul>
-  <p>
-    <ul>
-      <% cocktailList.forEach(elem => { %>
-        <li>
-          <%= elem.name %>
-            <%= elem.isAlcoholic ? '' : '(non-alcoholic)'%>
-              <%= elem.contains %>
-                <%= elem.price %>
-        </li>
-        <% }); %>
-    </ul>
-  </p>
+  <div class="container">
+    <div class="header">
+      <h2 class="nameCol">NAME</h2>
+      <h2 class="priceCol">PRICE</h2>
+    </div>
+      <ul class="itemlist">
+        <% cocktailList.forEach(elem => { %>
+          <li class="items">
+            <div class="name">
+              <strong><%= elem.name %></strong>
+                <%= elem.isAlcoholic ? '' : '(non-alcoholic)'%><br>
+                <%= elem.contains %>
+            </div>
+            <div class="price">
+              <%= elem.price %> FT
+            </div>
+          </li>
+          <% }); %>
+      </ul>
+  </div>
 </body>
 
 </html>
