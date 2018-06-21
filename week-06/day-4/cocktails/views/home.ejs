@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <title>
+    Cocktails
+  </title>
+</head>
+
+<body>
+  <h1>Cocktails</h1>
+  <ul class="alcList">
+    <li>
+      <a href="http://localhost:3000">ALL</a>
+    </li>
+    <% alcoholList.forEach(elem => { %>
+      <li>
+        <a href="http://localhost:3000/?alcohol=<%= elem %>">
+          <%= elem.toUpperCase() %>
+        </a>
+      </li>
+      <% }); %>
+  </ul>
+  <p>
+    <ul>
+      <% cocktailList.forEach(elem => { %>
+        <li>
+          <%= elem.name %>
+            <%= elem.isAlcoholic ? '' : '(non-alcoholic)'%>
+              <%= elem.contains %>
+                <%= elem.price %>
+        </li>
+        <% }); %>
+    </ul>
+  </p>
+</body>
+
+</html>
