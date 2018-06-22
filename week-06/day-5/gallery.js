@@ -10,22 +10,27 @@ const thumbnail = document.querySelector('.thumbnail');
 let picPos = 0;
 
 const images = [
-  { name: 'Dog1', desc: 'pic of dog1', src: 'dog-muzzle-relaxed.jpg'},
-  { name: 'Dog2', desc: 'pic of dog2', src: 'husky-dog-white.jpg'},
+  { name: 'Labrador', desc: 'Picture of a labrador', src: 'dog-muzzle-relaxed.jpg'},
+  { name: 'Husky', desc: 'Picture of a husky', src: 'husky-dog-white.jpg'},
 ]
 
 pic.setAttribute('src', '/images/'.concat(images[picPos].src));
 picName.textContent = images[picPos].name;
 picDesc.textContent = images[picPos].desc;
 
-images.forEach(dog => {
+images.forEach((dog, index) => {
   const newPic = document.createElement('img');
   newPic.setAttribute('src', '/images/'.concat(dog.src));
   newPic.classList.add('thumbs');
+  newPic.onclick = () => {
+    document.querySelector('.pic').setAttribute('src', '/images/'.concat(dog.src));
+    picPos = index;
+  }
+  newPic.onmouseover = () => {
+
+  }
   thumbnail.appendChild(newPic);
 })
-
-const thumbs = document.querySelectorAll('.thumbs');
 
 rightArrow.onclick = () => {
   picPos++;
@@ -46,9 +51,4 @@ leftArrow.onclick = () => {
   pic.setAttribute('src', '/images/'.concat(images[picPos].src));
   picName.textContent = images[picPos].name;
   picDesc.textContent = images[picPos].desc;
-};
-
-
-thumbs.onmouseover = () => {
-  console.log(thumbs);
 };
