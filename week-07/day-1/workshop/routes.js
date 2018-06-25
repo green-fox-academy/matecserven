@@ -11,36 +11,40 @@ app.get('/', (req, res) => {
 });
 
 app.get('/doubling', (req, res) => {
+  let message = { };
   if (req.query.input) {
-    res.json({
+    message = {
       received: req.query.input,
       result: req.query.input * 2,
-    });
+    };
   } else {
-    res.json({
+    message = {
       error: "Please provide an input!",
-    });
+    };
   }
+  res.json(message);
 });
 
 app.get('/greeter', (req, res) => {
+  let message = {};
   if (req.query.name && req.query.title) {
-    res.json({
+    message = {
       welcome_message: `Oh, hi there ${req.query.name}, my dear ${req.query.title}!`,
-    });
+    };
   } else if (req.query.name === undefined && req.query.title){
-    res.json({
+    message = {
       error: "Please provide a name!",
-    });
+    };
   } else if (req.query.name && req.query.title === undefined) {
-    res.json({
+    message = {
       error: "Please provide a title!",
-    });
+    };
   } else if (req.query.name === undefined && req.query.title === undefined) {
-    res.json({
+    message = {
       error: "Please provide a name!",
-    });
+    };
   }
+  res.json(message);
 });
 
 app.get('/appenda/:appendable', (req, res) => {
