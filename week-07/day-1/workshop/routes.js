@@ -63,19 +63,20 @@ app.post('/dountil/:what', (req, res) => {
   let message = { };
   let until = req.body.until;
   let what = req.params.what;
-  let fin = 1;
   if (until === undefined) {
     message = { error: "Please provide a number!"};
   } else {
     if (what === "sum") {
-      for (let i = 1; i < until; i++) {
-        fin += i + 1;
+      let fin = 0;
+      for (let i = 1; i <= until; i++) {
+        fin += i;
       }
       message = { result: `${fin}`};
     }
     if (what === "factor") {
-      for (let i = 1; i < until; i++) {
-        fin *= i + 1;
+      let fin = 1;
+      for (let i = 1; i <= until; i++) {
+        fin *= i;
       }
       message = { result: `${fin}` };
     }
