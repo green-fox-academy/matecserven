@@ -107,4 +107,29 @@ app.post('/arrays', (req, res) => {
   res.json(result);
 });
 
+app.post('/sith', (req, res) => {
+  let result = {};
+  let text = req.body.text;
+  let sith_text = [];
+
+  if (!text) {
+    result = { error: "Feed me some text you have to, padawan young you are. Hmmm." }
+  } else {
+    sith_text = text.toLowerCase().split('.');
+    sith_text[0] = sith_text[0].trim().split(' ');
+    sith_text[1] = sith_text[1].trim().split(' ');
+
+    sith_text[0].forEach((word, index, array) => {
+      let swap = '';
+      if (index % 2 === 1) {
+        swap = array[index - 1];
+        array[index - 1] = word;
+        array[index] = swap;
+      }
+    })
+    result = sith_text;
+  }
+  res.json(result);
+})
+
 module.exports = app;
