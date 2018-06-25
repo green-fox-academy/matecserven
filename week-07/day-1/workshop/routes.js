@@ -57,7 +57,7 @@ app.get('/appenda/:appendable', (req, res) => {
 
 app.get('/appenda/', (req, res) => {
   res.status(404).send('No input provided');
-})
+});
 
 app.post('/dountil/:what', (req, res) => {
   let message = { };
@@ -81,6 +81,29 @@ app.post('/dountil/:what', (req, res) => {
     }
   }
   res.json(message);
-})
+});
+
+app.post('/arrays', (req, res) => {
+  let result = { };
+  let what = req.body.what;
+  let numbers = req.body.numbers;
+
+  if (!what || !numbers) {
+    result = { error: "Please provide what to do with the numbers!"};
+  } else {
+    if (what === "sum") {
+      let fin = numbers.reduce((sum, curr) => sum + curr);
+      result = { result: fin};
+    } else if (what === "multiply") {
+      let fin = numbers.reduce((sum, curr) => sum * curr);
+      result = { result: fin };
+    } else if (what === "double") {
+      let fin = numbers.map(num => 
+        num * 2);
+      result = { result: fin };
+    }
+  }
+  res.json(result);
+});
 
 module.exports = app;
