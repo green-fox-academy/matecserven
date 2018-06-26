@@ -49,9 +49,34 @@
             section.appendChild(newDiv);
           }
           // 2: Create a function that adds a 'not-prime' class to a div if it's not a prime and 'prime' if it is
+          const isPrime = (div) => {
+            let number = parseInt(div.textContent);
+            if (number < 2) {
+              return div.classList.add('not-prime');
+            } else {
+              let squareNumber = Math.floor(Math.sqrt(number));
+              for (let i = 2; i <= squareNumber; i++) {
+                if (number % i === 0) {
+                  return div.classList.add('not-prime');
+                }
+              }
+              return div.classList.add('prime');
+            }
+          }
+
           // 3: Create a timer that keeps calling the prime validatior function until it reaches the end of elements
           //  - the timer should fire every 100ms
           //  - the timer should stop when there are no more elements left to be colored
+          const divs = document.querySelectorAll('div');
+          let index = 0;
+          const coloring = setInterval(() => {
+            isPrime(divs[index]);
+            index++;
+            if (index >= divs.length) {
+              clearInterval(coloring);
+            }
+          }, 100);
+
   </script>
 </body>
 
