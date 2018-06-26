@@ -20,12 +20,20 @@ const addOne = (number) => {
 
 console.log(mapWith([1, 2, 3], addOne));
 //expected result: [2, 3, 4]
-/*
+
 // Exercise 2:
 
 // Create a callback function which remove every second letter from a string
 
 const words = ['map', 'reduce', 'filter'];
 
-console.log(mapwith(words, removeSecondLetter));
-// expected result: ['mp','rdc', 'fle']*/
+const removeSecondLetter = (word) => {
+  let letters = '';
+  for (let i = 0; i < word.length; i += 2) {
+    letters += word.charAt(i);
+  }
+  return letters;
+}
+
+console.log(mapWith(words, removeSecondLetter));
+// expected result: ['mp','rdc', 'fle']
