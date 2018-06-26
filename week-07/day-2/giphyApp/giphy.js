@@ -1,7 +1,7 @@
 'use strict';
 
 const gif = document.querySelector('#gif');
-const img = document.createElement('iframe');
+const img = document.createElement('img');
 const thumbnail = document.querySelector('footer');
 
 let xhr = new XMLHttpRequest(),
@@ -15,6 +15,8 @@ xhr.onreadystatechange = function () {
     const response = JSON.parse(xhr.responseText);
     console.log(response);
     img.setAttribute('src', response.data[0].images.original.url);
+    
+    img.classList.add('gifimg');
     gif.appendChild(img);
 
     response.data.forEach(data => {
@@ -22,7 +24,7 @@ xhr.onreadystatechange = function () {
       newPic.setAttribute('src', data.images.fixed_width_still.url);
       newPic.classList.add('thumbs');
       newPic.onclick = () => {
-        document.querySelector('iframe').setAttribute('src', data.images.original.url);
+        document.querySelector('.gifimg').setAttribute('src', data.images.original.url);
       }
       thumbnail.appendChild(newPic);
     });
