@@ -7,6 +7,9 @@ const mysql = require('mysql');
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+app.use(express.static(__dirname));
+
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -29,23 +32,22 @@ app.get('/test', (req, res) => {
       res.status(500).send();
       return;
     }
-    res.json({
-      authors: rows,
-    });
+    res.json(rows);
   });
 });
 
-app.get('/booknames', (req, res) => {
-  let sql = 'SELECT book_name FROM book_mast;';
+app.get('/books', (req, res) => {
+  let sql = 'SELECT book_name, aut_name, cate_descrip, pub_name, book_price FROM book_mast, author, category, publisher WHERE author.aut_id = book_mast.aut_id AND category.cate_id = book_mast.cate_id AND publisher.pub_id = book_mast.pub_id ORDER BY book_name;';
 
-  conn.query(sql, queryInputs, (err, rows) => {
+  conn.query(sql, (err, rows) => {
     if (err) {
       console.log(err);
       res.status(500).send();
       return;
     }
     res.json({
-      books: _.map(rows, 'book_name'),
+      books: rows
+      /*books: _.map(rows, 'book_name'),*/
     });
   });
 });
