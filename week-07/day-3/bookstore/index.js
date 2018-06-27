@@ -1,6 +1,7 @@
 'use strict';
 
 require('dotenv').config();
+const _ = require('lodash');
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
@@ -34,7 +35,26 @@ app.get('/test', (req, res) => {
   });
 });
 
+app.get('/booknames', (req, res) => {
+  let sql = 'SELECT book_name FROM book_mast;';
+  let queryInputs = [];
 
+  if (req.query.country) {
+    sql = `SELECT * from author WHERE country = ?;`;
+    queryInputs = [req.query.country];
+  }
+
+  conn.query(sql, queryInputs, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    res.json({
+      books: _.map(rows, 'book_name'),
+    });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`The server is up on ${PORT}`);
