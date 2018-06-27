@@ -37,12 +37,6 @@ app.get('/test', (req, res) => {
 
 app.get('/booknames', (req, res) => {
   let sql = 'SELECT book_name FROM book_mast;';
-  let queryInputs = [];
-
-  if (req.query.country) {
-    sql = `SELECT * from author WHERE country = ?;`;
-    queryInputs = [req.query.country];
-  }
 
   conn.query(sql, queryInputs, (err, rows) => {
     if (err) {
