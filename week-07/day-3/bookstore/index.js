@@ -5,9 +5,31 @@ const mysql = require('mysql');
 const app = express();
 const PORT = 3000;
 
+const conn = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'bookstore',
+});
+
 app.get('/test', (req, res) => {
-  res.json({
-    message: 'ok',
+  let sql = 'SELECT * from author;';
+  let queryInputs = [];
+
+  if (req.query.country) {
+    sql = `SELECT * from author WHERE country = ?;`;
+    queryInputs = [req.query.country];
+  }
+
+  conn.query(sql, queryInputs, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    res.json({
+      authors: rows,
+    });
   });
 });
 
