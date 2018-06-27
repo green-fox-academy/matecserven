@@ -25,5 +25,5 @@ http.onload = () => {
 
 }
 
-http.open('GET', `http://localhost:3000/books`, true);
+http.open('GET', `http://localhost:3000/api/books`, true);
 http.send();
