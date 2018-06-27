@@ -1,7 +1,7 @@
 'use strict';
 
 require('dotenv').config();
-const _ = require('lodash');
+//const _ = require('lodash');
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
@@ -17,29 +17,25 @@ const conn = mysql.createConnection({
   database: process.env.DB_DATABASE,
 });
 
-app.get('/test', (req, res) => {
-  let sql = 'SELECT * from author;';
-  let queryInputs = [];
-
-  if (req.query.country) {
-    sql = `SELECT * from author WHERE country = ?;`;
-    queryInputs = [req.query.country];
-  }
-
-  conn.query(sql, queryInputs, (err, rows) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send();
-      return;
-    }
-    res.json(rows);
-  });
-});
-
 app.get('/books', (req, res) => {
   let sql = 'SELECT book_name, aut_name, cate_descrip, pub_name, book_price FROM book_mast, author, category, publisher WHERE author.aut_id = book_mast.aut_id AND category.cate_id = book_mast.cate_id AND publisher.pub_id = book_mast.pub_id ORDER BY book_name;';
 
-  conn.query(sql, (err, rows) => {
+  let queryInputs = [];
+
+  if (req.query.category || req.query.publisher) {
+    if (!req.query.category) {
+      sql = `SELECT book_name, aut_name, cate_descrip, pub_name, book_price FROM book_mast, author, category, publisher WHERE author.aut_id = book_mast.aut_id AND category.cate_id = book_mast.cate_id AND publisher.pub_id = book_mast.pub_id AND pub_name = ? ORDER BY book_name;`;
+      queryInputs = [req.query.publisher];
+    } else if (!req.query.publisher) {
+      sql = `SELECT book_name, aut_name, cate_descrip, pub_name, book_price FROM book_mast, author, category, publisher WHERE author.aut_id = book_mast.aut_id AND category.cate_id = book_mast.cate_id AND publisher.pub_id = book_mast.pub_id AND cate_descrip = ? ORDER BY book_name;`;
+      queryInputs = [req.query.category];
+    } else {
+      sql = `SELECT book_name, aut_name, cate_descrip, pub_name, book_price FROM book_mast, author, category, publisher WHERE author.aut_id = book_mast.aut_id AND category.cate_id = book_mast.cate_id AND publisher.pub_id = book_mast.pub_id AND cate_descrip = ? AND pub_name = ? ORDER BY book_name;`;
+      queryInputs = [req.query.category, req.query.publisher];
+    }
+  }
+
+  conn.query(sql, queryInputs, (err, rows) => {
     if (err) {
       console.log(err);
       res.status(500).send();
