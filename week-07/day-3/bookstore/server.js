@@ -1,7 +1,6 @@
 'use strict';
 
 require('dotenv').config();
-//const _ = require('lodash');
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
@@ -17,11 +16,11 @@ const conn = mysql.createConnection({
   database: process.env.DB_DATABASE,
 });
 
+
 app.get('/api/books', (req, res) => {
   let sql = 'SELECT book_name, aut_name, cate_descrip, pub_name, book_price FROM book_mast, author, category, publisher WHERE author.aut_id = book_mast.aut_id AND category.cate_id = book_mast.cate_id AND publisher.pub_id = book_mast.pub_id';
 
   let queryInputs = [];
-
 
   if (req.query.publisher) {
     sql = sql.concat(' AND publisher.pub_name = ?');
@@ -53,7 +52,6 @@ app.get('/api/books', (req, res) => {
     }
     res.json({
       books: rows,
-      /*books: _.map(rows, 'book_name'),*/
     });
   });
 });

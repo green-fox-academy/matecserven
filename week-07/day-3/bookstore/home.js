@@ -1,10 +1,11 @@
 'use strict';
 
-const table = document.querySelector('table');
-const thead = document.querySelector('.thead');
 const tbody = document.querySelector('tbody');
+const reset = document.querySelector('#reset');
+const medical = document.querySelector('#medical');
 
 const http = new XMLHttpRequest();
+const host = 'http://localhost:3000';
 
 http.onload = () => {
   const response = JSON.parse(http.responseText);
@@ -23,7 +24,18 @@ http.onload = () => {
     }
   })
 
+  reset.addEventListener('click', () => {
+    tbody.innerHTML = '';
+    http.open('GET', `${host}/api/books`, true);
+    http.send();
+  });
+
+  medical.addEventListener('click', () => {
+    tbody.innerHTML = '';
+    http.open('GET', `${host}/api/books?category=Medical`, true);
+    http.send();
+  });
 }
 
-http.open('GET', `http://localhost:3000/api/books`, true);
+http.open('GET', `${host}/api/books`, true);
 http.send();
