@@ -27,7 +27,7 @@ app.get('/api/posts', (req, res) => {
   let queryInputs = [];
   if (req.query.username) {
     queryInputs.push(req.query.username);
-    sql = sql.concat(' WHERE user = ?');
+    sql = sql.concat(' WHERE owner = ?');
   }
 
   conn.query(sql, queryInputs, (err, rows) => {
@@ -45,8 +45,11 @@ app.get('/api/posts', (req, res) => {
 app.post('/api/posts', (req, res) => {
   let title = req.body.title;
   let url = req.body.url;
-  let user = req.param.username;
-  let sql = `INSERT INTO posts (title, url, user) VALUE ('${title}', '${url}', '${user}')`;
+  // let user = req.param.username;
+  const username = req.get('username');
+
+
+  let sql = `INSERT INTO posts (title, url, owner) VALUE ('${title}', '${url}', '${username}')`;
 
   conn.query(sql, (err, rows) => {
     if (err) {
@@ -121,35 +124,9 @@ app.put('/api/posts/:id/downvote', (req, res) => {
 
 app.delete('/api/posts/:id', (req, res) => {
   let id = req.params.id;
-  let deleted = `SELECT * FROM posts WHERE id = ${id}`;
-  let sql = `DELETE FROM posts WHERE id = ${id}`;
-
-  conn.query(deleted, (err, rows) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send();
-      return;
-    }
-    deleted = rows;
-
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send();
-        return;
-      }
-      res.json({
-        deleted,
-      });
-    });
-  });
-});
-
-app.put('/api/posts/:id', (req, res) => {
-  let title = req.body.title;
-  let url = req.body.url;
-  let id = req.params.id;
-  let sql = `UPDATE posts SET title = '${title}', url = '${url}', timestamp = CURRENT_TIMESTAMP WHERE id = ${id}`;
+  const username = req.get('username');
+  let deleted;
+  let sql = `SELECT * FROM posts WHERE id = ${id}`;
 
   conn.query(sql, (err, rows) => {
     if (err) {
@@ -157,19 +134,65 @@ app.put('/api/posts/:id', (req, res) => {
       res.status(500).send();
       return;
     }
-    sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send();
-        return;
-      }
-      res.json({
-        rows,
+    if (rows[0]["owner"] === username) {
+      deleted = rows;
+      sql = `DELETE FROM posts WHERE id = ${id}`;
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+          return;
+        }
+        res.json({
+          deleted,
+        });
       });
-    });
+    } else {
+      res.json('User is not allowed to delete the post');
+    }
   });
+});
+
+app.put('/api/posts/:id', (req, res) => {
+  let title = req.body.title;
+  let url = req.body.url;
+  let id = req.params.id;
+  const username = req.get('username');
+  let sql = `SELECT owner FROM posts WHERE id = ${id}`;
+
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    if (rows[0]["owner"] === username) {
+      sql = `UPDATE posts SET title = '${title}', url = '${url}', timestamp = CURRENT_TIMESTAMP WHERE id = ${id}`;
+
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+          return;
+        }
+        sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          res.json({
+            rows,
+          });
+        });
+      });
+
+    } else {
+      res.json('User is not allowed to update the post');
+    }
+  })
 });
 
 
