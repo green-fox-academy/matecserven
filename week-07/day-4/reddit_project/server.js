@@ -62,6 +62,56 @@ app.post('/api/posts', (req, res) => {
   });
 });
 
+app.put('/api/posts/:id/upvote', (req, res) => {
+  let id = req.params.id;
+  let sql = `UPDATE posts SET score = score + 1 WHERE id = ${id};`;
+  
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+        return;
+      }
+      res.json({
+        rows,
+      });
+    });
+  });
+})
+
+app.put('/api/posts/:id/downvote', (req, res) => {
+  let id = req.params.id;
+  let sql = `UPDATE posts SET score = score - 1 WHERE id = ${id};`;
+
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+        return;
+      }
+      res.json({
+        rows,
+      });
+    });
+  });
+})
+
 app.listen(PORT, () => {
   console.log(`The server is up on ${PORT}`);
 });
