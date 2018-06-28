@@ -21,12 +21,46 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 })
 
-app.get('/hello', (req, res) => {
-  res.json({
-    string: 'hello',
-  });
+app.get('/api/posts', (req, res) => {
+  let sql = 'SELECT * FROM posts';
 
-})
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    res.json({
+      posts: rows,
+    });
+  });
+});
+
+app.post('/api/posts', (req, res) => {
+  let title = req.body.title;
+  let url = req.body.url;
+  let sql = `INSERT INTO posts (title, url) VALUE ('${title}', '${url}')`;
+
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    sql = `SELECT * FROM posts WHERE id = ${rows["insertId"]}`;
+    
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+        return;
+      }
+      res.json({
+        rows,
+      });
+    });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`The server is up on ${PORT}`);
