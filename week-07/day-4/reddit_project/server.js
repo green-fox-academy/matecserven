@@ -45,9 +45,7 @@ app.get('/api/posts', (req, res) => {
 app.post('/api/posts', (req, res) => {
   let title = req.body.title;
   let url = req.body.url;
-  // let user = req.param.username;
   const username = req.get('username');
-
 
   let sql = `INSERT INTO posts (title, url, owner) VALUE ('${title}', '${url}', '${username}')`;
 
@@ -74,7 +72,7 @@ app.post('/api/posts', (req, res) => {
 
 app.put('/api/posts/:id/upvote', (req, res) => {
   let id = req.params.id;
-  let sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+  let sql = `UPDATE posts SET score = score + 1, vote = 1 WHERE id = ${id}`;
 
   conn.query(sql, (err, rows) => {
     if (err) {
@@ -99,7 +97,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
 
 app.put('/api/posts/:id/downvote', (req, res) => {
   let id = req.params.id;
-  let sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+  let sql = `UPDATE posts SET score = score - 1, vote = -1 WHERE id = ${id}`;
 
   conn.query(sql, (err, rows) => {
     if (err) {
