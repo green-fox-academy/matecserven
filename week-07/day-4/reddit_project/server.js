@@ -86,7 +86,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
     if (rows.length !== 0) {
       vote = rows[0]["vote"];
       if (vote === 1) {
-        sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}'`;
+        sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}' AND post_id = ${id}`;
 
         conn.query(sql, (err, rows) => {
           if (err) {
@@ -118,7 +118,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
           });
         });
       } else if (vote === -1) {
-        sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}'`;
+        sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}' AND post_id = ${id}`;
 
         conn.query(sql, (err, rows) => {
           if (err) {
@@ -150,7 +150,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
           });
         });
       } else if (vote === 0) {
-        sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}'`;
+        sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}' AND post_id = ${id}`;
 
         conn.query(sql, (err, rows) => {
           if (err) {
@@ -235,7 +235,7 @@ app.put('/api/posts/:id/downvote', (req, res) => {
     if (rows.length !== 0) {
       vote = rows[0]["vote"];
       if (vote === 1) {
-        sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}'`;
+        sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}' AND post_id = ${id}`;
 
         conn.query(sql, (err, rows) => {
           if (err) {
@@ -267,7 +267,7 @@ app.put('/api/posts/:id/downvote', (req, res) => {
           });
         });
       } else if (vote === -1) {
-        sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}'`;
+        sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}' AND post_id = ${id}`;
 
         conn.query(sql, (err, rows) => {
           if (err) {
@@ -299,7 +299,7 @@ app.put('/api/posts/:id/downvote', (req, res) => {
           });
         });
       } else if (vote === 0) {
-        sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}'`;
+        sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}' AND post_id = ${id}`;
 
         conn.query(sql, (err, rows) => {
           if (err) {
