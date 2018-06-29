@@ -71,8 +71,11 @@ app.post('/api/posts', (req, res) => {
 });
 
 app.put('/api/posts/:id/upvote', (req, res) => {
-  let id = req.params.id;
-  let sql = `UPDATE posts SET score = score + 1, vote = 1 WHERE id = ${id}`;
+  const id = req.params.id;
+  const username = req.get('username');
+  let vote = 0;
+
+  let sql = `SELECT vote FROM user_voted_posts WHERE post_id = ${id} AND username = '${username}'`;
 
   conn.query(sql, (err, rows) => {
     if (err) {
@@ -80,24 +83,148 @@ app.put('/api/posts/:id/upvote', (req, res) => {
       res.status(500).send();
       return;
     }
-    sql = `SELECT * FROM posts WHERE id = ${id}`;
+    if (rows.length !== 0) {
+      vote = rows[0]["vote"];
+      if (vote === 1) {
+        sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}'`;
 
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send();
-        return;
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+        });
+
+        sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
+        });
+      } else if (vote === -1) {
+        sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}'`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+        });
+
+        sql = `UPDATE posts SET score = score + 2 WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
+        });
+      } else if (vote === 0) {
+        sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}'`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+        });
+
+        sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
+        });
       }
-      res.json({
-        rows,
+    } else {
+
+      let sql2 = `INSERT INTO user_voted_posts (post_id, username, vote) VALUE (${id}, '${username}', 1)`;
+
+      conn.query(sql2, (err, rows) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+          return;
+        }
+      })
+
+      sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+          return;
+        }
+        sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          res.json({
+            rows,
+          });
+        });
       });
-    });
+    }
   });
-})
+});
 
 app.put('/api/posts/:id/downvote', (req, res) => {
-  let id = req.params.id;
-  let sql = `UPDATE posts SET score = score - 1, vote = -1 WHERE id = ${id}`;
+  const id = req.params.id;
+  const username = req.get('username');
+  let vote = 0;
+
+  let sql = `SELECT vote FROM user_voted_posts WHERE post_id = ${id} AND username = '${username}'`;
 
   conn.query(sql, (err, rows) => {
     if (err) {
@@ -105,18 +232,139 @@ app.put('/api/posts/:id/downvote', (req, res) => {
       res.status(500).send();
       return;
     }
-    sql = `SELECT * FROM posts WHERE id = ${id}`;
+    if (rows.length !== 0) {
+      vote = rows[0]["vote"];
+      if (vote === 1) {
+        sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}'`;
 
-    conn.query(sql, (err, rows) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send();
-        return;
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+        });
+
+        sql = `UPDATE posts SET score = score - 2 WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
+        });
+      } else if (vote === -1) {
+        sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}'`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+        });
+
+        sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
+        });
+      } else if (vote === 0) {
+        sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}'`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+        });
+
+        sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
+        });
       }
-      res.json({
-        rows,
+    } else {
+
+      let sql2 = `INSERT INTO user_voted_posts (post_id, username, vote) VALUE (${id}, '${username}', -1)`;
+
+      conn.query(sql2, (err, rows) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+          return;
+        }
+      })
+
+      sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+
+      conn.query(sql, (err, rows) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send();
+          return;
+        }
+        sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          res.json({
+            rows,
+          });
+        });
       });
-    });
+    }
   });
 });
 
@@ -190,9 +438,34 @@ app.put('/api/posts/:id', (req, res) => {
     } else {
       res.json('User is not allowed to update the post');
     }
-  })
+  });
 });
 
+app.post('/api/user', (req, res) => {
+  const username = req.get('username');
+
+  let sql = `INSERT INTO user (username) VALUE ('${username}')`;
+
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    sql = `SELECT * FROM user WHERE user_id = ${rows["insertId"]}`;
+
+    conn.query(sql, (err, rows) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+        return;
+      }
+      res.json({
+        rows,
+      });
+    });
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`The server is up on ${PORT}`);
