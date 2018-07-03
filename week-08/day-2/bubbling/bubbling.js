@@ -20,12 +20,21 @@ nav.addEventListener('click', (event) => {
 
   if (event.target.getAttribute('data-direction') === 'up') {
     marginTop -= 10;
-    img.style.marginTop = `${marginTop}px`;
+    img.style.backgroundPositionY = `${marginTop}px`;
   }
 
   if (event.target.getAttribute('data-direction') === 'down') {
     marginTop += 10;
-    img.style.marginTop = `${marginTop}px`;
+    img.style.backgroundPositionY = `${marginTop}px`;
   }
 
+  if (event.target.getAttribute('data-direction') === 'left') {
+    marginLeft -= 10;
+    img.style.backgroundPositionX = `${marginLeft}px`;
+  }
+
+  if (event.target.getAttribute('data-direction') === 'right') {
+    marginLeft += 10;
+    img.style.backgroundPositionX = `${marginLeft}px`;
+  }
 });
