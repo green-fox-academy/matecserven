@@ -4,8 +4,8 @@ const nav = document.querySelector('nav');
 const img = document.querySelector('.img-inspector');
 const style = document.querySelector('style');
 let size = 200;
-let marginTop = 0;
-let marginLeft = 0;
+let posY = 0;
+let posX = 0;
 
 nav.addEventListener('click', (event) => {
   if (event.target.getAttribute('data-direction') === 'in') {
@@ -19,22 +19,22 @@ nav.addEventListener('click', (event) => {
   }
 
   if (event.target.getAttribute('data-direction') === 'up') {
-    marginTop -= 10;
-    img.style.backgroundPositionY = `${marginTop}px`;
+    posY -= 10;
+    img.style.backgroundPositionY = `${posY}px`;
   }
 
   if (event.target.getAttribute('data-direction') === 'down') {
-    marginTop += 10;
-    img.style.backgroundPositionY = `${marginTop}px`;
+    posY += 10;
+    img.style.backgroundPositionY = `${posY}px`;
   }
 
   if (event.target.getAttribute('data-direction') === 'left') {
-    marginLeft -= 10;
-    img.style.backgroundPositionX = `${marginLeft}px`;
+    posX -= 10;
+    img.style.backgroundPositionX = `${posX}px`;
   }
 
   if (event.target.getAttribute('data-direction') === 'right') {
-    marginLeft += 10;
-    img.style.backgroundPositionX = `${marginLeft}px`;
+    posX += 10;
+    img.style.backgroundPositionX = `${posX}px`;
   }
 });
