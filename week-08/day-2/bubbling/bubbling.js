@@ -9,12 +9,12 @@ let posX = 0;
 
 nav.addEventListener('click', (event) => {
   if (event.target.getAttribute('data-direction') === 'in') {
-    size -= 20;
+    size += 20;
     img.style.backgroundSize = `${size}%`;
   }
 
   if (event.target.getAttribute('data-direction') === 'out') {
-    size += 20;
+    size -= 20;
     img.style.backgroundSize = `${size}%`;
   }
 
