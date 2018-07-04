@@ -5,6 +5,7 @@ const signButton = document.querySelector('.sign');
 const form = document.querySelector('form');
 let catfact;
 let animal;
+let message = '';
 
 form.addEventListener('change', event => {
   if (event.target.name === 'animal') {
@@ -25,21 +26,20 @@ form.addEventListener('change', event => {
   if (animal === 'Viktor' && catfact === false) {
     signButton.removeAttribute('disabled');
     catButton.setAttribute('disabled', 'true');
-    signButton.addEventListener('click', () => {
-      alert('Doesnt matter you get catfacts!');
-      event.preventDefault();
-    });
+    message = 'Doesnt matter, you still get cat facts!';
   } else if (catfact) {
     signButton.removeAttribute('disabled');
     catButton.removeAttribute('disabled');
-    signButton.addEventListener('click', () => {
-      alert('Thank you for signing up for cat facts!');
-      event.preventDefault();  
-    });
+    message = 'Thank you for signing up for cat facts!';
   } else if (!catfact) {
     catButton.setAttribute('disabled', 'true');
     signButton.setAttribute('disabled', 'true');
   }
+  event.preventDefault();
+});
+
+signButton.addEventListener('click', () => {
+  alert(message);
   event.preventDefault();
 });
 
