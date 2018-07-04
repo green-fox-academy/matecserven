@@ -7,6 +7,7 @@ const selected = document.querySelector('.changeme');
 
 
 genre.addEventListener('change', (event) => {
+  movieSelector.selectedIndex = 0;
   if (event.target.value === 'scifi') {
     movies.forEach(movie => {
       if (movie.className === 'genre scifi') {
