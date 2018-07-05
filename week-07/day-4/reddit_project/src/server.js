@@ -72,7 +72,7 @@ app.post('/api/posts', (req, res) => {
 
 app.put('/api/posts/:id/upvote', (req, res) => {
   const id = req.params.id;
-  const username = req.get('username');
+  const username = req.headers.username;
   let vote = 0;
 
   let sql = `SELECT vote FROM user_voted_posts WHERE post_id = ${id} AND username = '${username}'`;

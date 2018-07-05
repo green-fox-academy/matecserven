@@ -8,7 +8,9 @@ function createPost(element) {
   const upvote = document.createElement('img');
   upvote.setAttribute('src', 'static/imgs/upvote.png');
   upvote.classList.add('upvote');
+  upvote.dataset.id = element.id;
   const downvote = document.createElement('img');
+  downvote.dataset.id = element.id;
   downvote.setAttribute('src', 'static/imgs/downvote.png');
   downvote.classList.add('downvote');
   
@@ -19,6 +21,7 @@ function createPost(element) {
 
   const score = document.createElement('div');
   score.classList.add('score');
+  score.dataset.id = element.id;
   post.appendChild(score);
   score.textContent = element.score;
   score.appendChild(upvote);
@@ -50,7 +53,6 @@ function createPost(element) {
 }
 
 http.open('GET', `${host}/api/posts`, true);
-http.setRequestHeader('username', 'user1');
 http.onload = () => {
   const response = JSON.parse(http.responseText);
   response.posts.forEach(element => {
@@ -58,3 +60,28 @@ http.onload = () => {
   });
 }
 http.send();
+
+postList.addEventListener('click', event => {
+  if (event.target.classList.value === 'upvote') {
+    const id = event.target.dataset.id;
+    http.open('PUT', `${host}/api/posts/${id}/upvote`, true);
+    http.setRequestHeader('username', 'user1');
+    http.onload = () => {
+      const response = JSON.parse(http.responseText);
+      console.log(response);
+    }
+    http.send();
+  }
+  if (event.target.classList.value === 'downvote') {
+    const id = event.target.dataset.id;
+    http.open('PUT', `${host}/api/posts/${id}/downvote`, true);
+    http.setRequestHeader('username', 'user1');
+    http.onload = () => {
+      const response = JSON.parse(http.responseText);
+      console.log(response);
+    }
+    http.send();
+  }
+  //console.log(event.target.classList.value);
+  //event.target.dataset.id;
+});

@@ -43,7 +43,6 @@ main {
 }
 
 .postList {
-  background: yellow;
   display: flex;
   flex-flow: column;
   align-items: center;
