@@ -14,19 +14,17 @@ function createPost(element) {
   downvote.dataset.id = element.id;
   downvote.setAttribute('src', 'static/imgs/downvote.png');
   downvote.classList.add('downvote');
-  
+
   const post = document.createElement('div');
   post.classList.add('post');
-  post.setAttribute('id', element.id);
+  post.dataset.id = element.id;
   postList.appendChild(post);
-  
+
   const score = document.createElement('div');
   const scoreValue = document.createElement('p');
   scoreValue.classList.add('scoreValue');
-  scoreValue.dataset.id = element.id;
   scoreValue.textContent = element.score;
   score.classList.add('score');
-  score.dataset.id = element.id;
   post.appendChild(score);
   score.appendChild(upvote);
   score.appendChild(scoreValue);
@@ -63,6 +61,12 @@ function createPost(element) {
   const modifyPost = document.createElement('button');
   cellModify.classList.add('cellAction');
   details.appendChild(cellModify);
+  deletePost.classList.add('delete');
+  modifyPost.classList.add('modify');
+  deletePost.textContent = 'Delete';
+  modifyPost.textContent = 'Modify';
+  deletePost.dataset.id = element.id;
+  modifyPost.dataset.id = element.id;
   cellModify.appendChild(deletePost);
   cellModify.appendChild(modifyPost);
 }
@@ -77,36 +81,40 @@ http.onload = () => {
 http.send();
 
 postList.addEventListener('click', event => {
+  const id = event.target.dataset.id;
   if (event.target.classList.value === 'upvote') {
-    const id = event.target.dataset.id;
     http.open('PUT', `${host}/api/posts/${id}/upvote`, true);
     http.setRequestHeader('username', 'user1');
     http.onload = () => {
       const response = JSON.parse(http.responseText);
-      const scoreValue = document.querySelectorAll('.scoreValue');
-      scoreValue.forEach(value => {
-        if (value.dataset.id === id) {
-          value.textContent = `${response.rows[0].score}`;
-        }
-      });
+      const scoreValue = document.querySelector(`.post[data-id="${id}"] .scoreValue`);
+      scoreValue.textContent = `${response.rows[0].score}`;
+      console.log(response);
     }
     http.send();
   }
   if (event.target.classList.value === 'downvote') {
-    const id = event.target.dataset.id;
     http.open('PUT', `${host}/api/posts/${id}/downvote`, true);
     http.setRequestHeader('username', 'user1');
     http.onload = () => {
       const response = JSON.parse(http.responseText);
-      const scoreValue = document.querySelectorAll('.scoreValue');
-      scoreValue.forEach(value => {
-        if (value.dataset.id === id) {
-          value.textContent = `${response.rows[0].score}`;
-        }
-      });
+      const scoreValue = document.querySelector(`.post[data-id="${id}"] .scoreValue`);
+      scoreValue.textContent = `${response.rows[0].score}`;
     }
     http.send();
   }
-  //console.log(event.target.classList.value);
-  //event.target.dataset.id;
+  if (event.target.classList.value === 'delete') {
+    http.open('DELETE', `${host}/api/posts/${id}`, true);
+    http.setRequestHeader('username', 'user4');
+    http.onload = () => {
+      const response = JSON.parse(http.responseText);
+      console.log(response);
+      if (response.id) {
+        postList.removeChild(document.querySelector(`.post[data-id="${id}"]`));
+      } else {
+        alert('User cant delete post!');
+      }
+    }
+    http.send();
+  }
 });
