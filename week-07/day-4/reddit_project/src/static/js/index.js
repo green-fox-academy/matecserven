@@ -129,4 +129,3 @@ postList.addEventListener('click', event => {
     http.send();
   }
 });
-
