@@ -9,6 +9,7 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use('/static', express.static('static'));
+app.use('/views', express.static('views'));
 
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -19,10 +20,6 @@ const conn = mysql.createConnection({
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/index.html'));
-});
-
-app.get('/createPost', (req, res) => {
-  res.sendFile(path.join(__dirname, '/views/createPost.html'));
 });
 
 app.get('/api/posts', (req, res) => {

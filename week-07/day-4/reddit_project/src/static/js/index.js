@@ -3,6 +3,7 @@
 const http = new XMLHttpRequest();
 const host = 'http://localhost:3000';
 const postList = document.querySelector('.postList');
+const newPostButton = document.querySelector('#createPostButton');
 
 function createPost(element) {
   //make these buttons
@@ -116,11 +117,11 @@ postList.addEventListener('click', event => {
   }
   if (event.target.classList.value === 'delete') {
     http.open('DELETE', `${host}/api/posts/${id}`, true);
-    http.setRequestHeader('username', 'user4');
+    http.setRequestHeader('username', 'Mate');
     http.onload = () => {
       const response = JSON.parse(http.responseText);
       console.log(response);
-      if (response.id) {
+      if (response.deleted) {
         postList.removeChild(document.querySelector(`.post[data-id="${id}"]`));
       } else {
         alert('User cant delete post!');
