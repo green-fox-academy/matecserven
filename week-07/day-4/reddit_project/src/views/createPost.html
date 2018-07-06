@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Fake Reddit Create New Post</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <img src="/static/imgs/header.jpg" alt="Space background" id="headerBg">
+    <img src="https://upload.wikimedia.org/wikipedia/en/5/58/Reddit_logo_new.svg" alt="reddit logo" id="redditLogo">
+  </header>
+  <main>
+    <form class="newPostField" action="/api/posts" method="post">
+      <label>
+        <span>Title</span>
+        <input type="text" id="newTitle">
+      </label>
+      <label>
+        <span>Field</span>
+        <textarea id="newPost" name="user_message"></textarea>
+      </label>
+      <button type="submit" class="buttonPost">Create your post</button>
+    </form>
+    <form action="/">
+      <input type="submit" value="Go back" class="goback"/>
+    </form>
+  </main>
+  <script src="/static/js/index.js"></script>
+</body>
+
+</html>

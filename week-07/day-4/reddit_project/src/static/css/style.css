@@ -80,11 +80,55 @@ main {
   flex-direction: row;
 }
 
-
 .logPost {
   background: red;
   flex-basis: 28%;
   max-width: 400px;
   height: 400px;
   margin: 10px;
+}
+
+.newPostField {
+  margin: 0 auto;
+  width: 70%;
+  padding: 30px 60px;
+  border: 1px solid #CCC;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
+  text-align: left;
+}
+
+span {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+#newTitle, textarea {
+  width: 600px;
+  border: 1px solid #999;
+}
+
+textarea {
+  vertical-align: top;
+  height: 400px;
+}
+
+#newTitle {
+  height: 30px;
+}
+
+.buttonPost {
+  width: 200px;
+  height: 50px;
+  font-size: 18px;
+}
+
+.goback {
+  width: 100px;
+  height: 30px;
 }

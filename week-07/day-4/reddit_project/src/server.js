@@ -21,6 +21,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/views/index.html'));
 });
 
+app.get('/createPost', (req, res) => {
+  res.sendFile(path.join(__dirname, '/views/createPost.html'));
+});
+
 app.get('/api/posts', (req, res) => {
   let sql = 'SELECT * FROM posts';
 
@@ -87,8 +91,8 @@ app.put('/api/posts/:id/upvote', (req, res) => {
       vote = rows[0]["vote"];
       if (vote === 1) {
         sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}' AND post_id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
+        
+        conn.query(sql, (err) => {
           if (err) {
             console.log(err);
             res.status(500).send();
@@ -96,7 +100,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
           }
 
           sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
-          conn.query(sql, (err, rows) => {
+          conn.query(sql, (err) => {
             if (err) {
               console.log(err);
               res.status(500).send();
@@ -112,6 +116,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
               }
               res.json({
                 rows,
+                vote: 0,
               });
             });
           });
@@ -119,8 +124,8 @@ app.put('/api/posts/:id/upvote', (req, res) => {
       } else {
 
         sql = `UPDATE user_voted_posts SET vote = 1 WHERE username = '${username}' AND post_id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
+        
+        conn.query(sql, (err) => {
           if (err) {
             console.log(err);
             res.status(500).send();
@@ -129,7 +134,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
           if (vote === -1) {
             sql = `UPDATE posts SET score = score + 2 WHERE id = ${id}`;
 
-            conn.query(sql, (err, rows) => {
+            conn.query(sql, (err) => {
               if (err) {
                 console.log(err);
                 res.status(500).send();
@@ -144,13 +149,13 @@ app.put('/api/posts/:id/upvote', (req, res) => {
                 }
                 res.json({
                   rows,
+                  vote: 1,
                 });
               });
             });
           } else if (vote === 0) {
             sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
-
-            conn.query(sql, (err, rows) => {
+            conn.query(sql, (err) => {
               if (err) {
                 console.log(err);
                 res.status(500).send();
@@ -166,6 +171,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
                 }
                 res.json({
                   rows,
+                  vote: 1,
                 });
               });
             });
@@ -175,8 +181,8 @@ app.put('/api/posts/:id/upvote', (req, res) => {
     } else {
 
       let sql2 = `INSERT INTO user_voted_posts (post_id, username, vote) VALUE (${id}, '${username}', 1)`;
-
-      conn.query(sql2, (err, rows) => {
+      
+      conn.query(sql2, (err) => {
         if (err) {
           console.log(err);
           res.status(500).send();
@@ -184,7 +190,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
         }
         sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
 
-        conn.query(sql, (err, rows) => {
+        conn.query(sql, (err) => {
           if (err) {
             console.log(err);
             res.status(500).send();
@@ -200,6 +206,7 @@ app.put('/api/posts/:id/upvote', (req, res) => {
             }
             res.json({
               rows,
+              vote: 1,
             });
           });
         });
@@ -225,15 +232,14 @@ app.put('/api/posts/:id/downvote', (req, res) => {
       vote = rows[0]["vote"];
       if (vote === -1) {
         sql = `UPDATE user_voted_posts SET vote = 0 WHERE username = '${username}' AND post_id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
+        conn.query(sql, (err) => {
           if (err) {
             console.log(err);
             res.status(500).send();
             return;
           }
           sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
-          conn.query(sql, (err, rows) => {
+          conn.query(sql, (err) => {
             if (err) {
               console.log(err);
               res.status(500).send();
@@ -249,14 +255,14 @@ app.put('/api/posts/:id/downvote', (req, res) => {
               }
               res.json({
                 rows,
+                vote: 0,
               });
             });
           });
         });
       } else {
         sql = `UPDATE user_voted_posts SET vote = -1 WHERE username = '${username}' AND post_id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
+        conn.query(sql, (err) => {
           if (err) {
             console.log(err);
             res.status(500).send();
@@ -265,7 +271,7 @@ app.put('/api/posts/:id/downvote', (req, res) => {
           if (vote === 1) {
             sql = `UPDATE posts SET score = score - 2 WHERE id = ${id}`;
 
-            conn.query(sql, (err, rows) => {
+            conn.query(sql, (err) => {
               if (err) {
                 console.log(err);
                 res.status(500).send();
@@ -281,13 +287,14 @@ app.put('/api/posts/:id/downvote', (req, res) => {
                 }
                 res.json({
                   rows,
+                  vote: -1,
                 });
               });
             });
           } else if (vote === 0) {
             sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
 
-            conn.query(sql, (err, rows) => {
+            conn.query(sql, (err) => {
               if (err) {
                 console.log(err);
                 res.status(500).send();
@@ -303,6 +310,7 @@ app.put('/api/posts/:id/downvote', (req, res) => {
                 }
                 res.json({
                   rows,
+                  vote: -1,
                 });
               });
             });
@@ -312,15 +320,14 @@ app.put('/api/posts/:id/downvote', (req, res) => {
     } else {
 
       let sql2 = `INSERT INTO user_voted_posts (post_id, username, vote) VALUE (${id}, '${username}', -1)`;
-
-      conn.query(sql2, (err, rows) => {
+      conn.query(sql2, (err) => {
         if (err) {
           console.log(err);
           res.status(500).send();
           return;
         }
         sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
-        conn.query(sql, (err, rows) => {
+        conn.query(sql, (err) => {
           if (err) {
             console.log(err);
             res.status(500).send();
@@ -336,6 +343,7 @@ app.put('/api/posts/:id/downvote', (req, res) => {
             }
             res.json({
               rows,
+              vote: -1,
             });
           });
         });

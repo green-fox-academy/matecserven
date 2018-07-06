@@ -89,7 +89,12 @@ postList.addEventListener('click', event => {
       const response = JSON.parse(http.responseText);
       const scoreValue = document.querySelector(`.post[data-id="${id}"] .scoreValue`);
       scoreValue.textContent = `${response.rows[0].score}`;
-      console.log(response);
+      if (response.vote === 1) {
+        event.target.setAttribute('src', 'static/imgs/upvoted.png');
+        document.querySelector(`.post[data-id= "${id}"] .downvote`).setAttribute('src', 'static/imgs/downvote.png');
+      } else {
+        event.target.setAttribute('src', 'static/imgs/upvote.png');
+      }
     }
     http.send();
   }
@@ -100,6 +105,12 @@ postList.addEventListener('click', event => {
       const response = JSON.parse(http.responseText);
       const scoreValue = document.querySelector(`.post[data-id="${id}"] .scoreValue`);
       scoreValue.textContent = `${response.rows[0].score}`;
+      if (response.vote === -1) {
+        event.target.setAttribute('src', 'static/imgs/downvoted.png');
+        document.querySelector(`.post[data-id= "${id}"] .upvote`).setAttribute('src', 'static/imgs/upvote.png');
+      } else {
+        event.target.setAttribute('src', 'static/imgs/downvote.png');
+      }
     }
     http.send();
   }
@@ -118,3 +129,4 @@ postList.addEventListener('click', event => {
     http.send();
   }
 });
+
