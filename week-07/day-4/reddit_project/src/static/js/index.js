@@ -5,6 +5,7 @@ const host = 'http://localhost:3000';
 const postList = document.querySelector('.postList');
 
 function createPost(element) {
+  //make these buttons
   const upvote = document.createElement('img');
   upvote.setAttribute('src', 'static/imgs/upvote.png');
   upvote.classList.add('upvote');
@@ -18,38 +19,52 @@ function createPost(element) {
   post.classList.add('post');
   post.setAttribute('id', element.id);
   postList.appendChild(post);
-
+  
   const score = document.createElement('div');
+  const scoreValue = document.createElement('p');
+  scoreValue.classList.add('scoreValue');
+  scoreValue.dataset.id = element.id;
+  scoreValue.textContent = element.score;
   score.classList.add('score');
   score.dataset.id = element.id;
   post.appendChild(score);
-  score.textContent = element.score;
   score.appendChild(upvote);
+  score.appendChild(scoreValue);
   score.appendChild(downvote);
+
   const details = document.createElement('div');
   details.classList.add('details');
   post.appendChild(details);
 
-  const cellTitle = document.createElement('div');
-  cellTitle.classList.add('cell');
-  cellTitle.classList.add('title');
-  details.appendChild(cellTitle);
-  cellTitle.textContent = element.title;
-  const cellUrl = document.createElement('div');
-  cellUrl.classList.add('cell');
-  cellUrl.classList.add('url');
-  details.appendChild(cellUrl); 
-  cellUrl.textContent = element.url;
-  const cellOwner = document.createElement('div');
-  cellOwner.classList.add('cell');
-  cellOwner.classList.add('owner');
-  details.appendChild(cellOwner);
-  cellOwner.textContent = element.owner;
-  const cellDate = document.createElement('div');
-  cellDate.classList.add('cell');
-  cellDate.classList.add('date');
-  details.appendChild(cellDate);
-  cellDate.textContent = element.timestamp;
+  const cellTop = document.createElement('div');
+  const title = document.createElement('h3');
+  const url = document.createElement('a');
+  cellTop.classList.add('cell');
+  cellTop.classList.add('title');
+  title.textContent = element.title;
+  url.textContent = element.url;
+  url.setAttribute('href', `${element.url}`);
+  details.appendChild(cellTop);
+  cellTop.appendChild(title);
+  cellTop.appendChild(url);
+  const cellPosted = document.createElement('div');
+  const owner = document.createElement('p');
+  const date = document.createElement('p');
+  cellPosted.classList.add('cell');
+  cellPosted.classList.add('posted');
+  owner.textContent = 'Posted by ' + element.owner;
+  date.textContent = ' at ' + element.timestamp;
+  details.appendChild(cellPosted);
+  cellPosted.appendChild(owner);
+  cellPosted.appendChild(date);
+
+  const cellModify = document.createElement('div');
+  const deletePost = document.createElement('button');
+  const modifyPost = document.createElement('button');
+  cellModify.classList.add('cellAction');
+  details.appendChild(cellModify);
+  cellModify.appendChild(deletePost);
+  cellModify.appendChild(modifyPost);
 }
 
 http.open('GET', `${host}/api/posts`, true);
@@ -68,7 +83,12 @@ postList.addEventListener('click', event => {
     http.setRequestHeader('username', 'user1');
     http.onload = () => {
       const response = JSON.parse(http.responseText);
-      console.log(response);
+      const scoreValue = document.querySelectorAll('.scoreValue');
+      scoreValue.forEach(value => {
+        if (value.dataset.id === id) {
+          value.textContent = `${response.rows[0].score}`;
+        }
+      });
     }
     http.send();
   }
@@ -78,7 +98,12 @@ postList.addEventListener('click', event => {
     http.setRequestHeader('username', 'user1');
     http.onload = () => {
       const response = JSON.parse(http.responseText);
-      console.log(response);
+      const scoreValue = document.querySelectorAll('.scoreValue');
+      scoreValue.forEach(value => {
+        if (value.dataset.id === id) {
+          value.textContent = `${response.rows[0].score}`;
+        }
+      });
     }
     http.send();
   }

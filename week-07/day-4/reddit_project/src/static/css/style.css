@@ -61,29 +61,25 @@ main {
 }
 
 .score {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   width: 10%;
 }
 
 .details {
   display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.title, .posted {
+  display: flex;
+  flex: 1;
   flex-direction: row;
-  flex-wrap: wrap;
-  flex: 1;
 }
 
-.cell {
-  flex: 1;
-  min-width: 45%;
-  height: 50%;
-}
-
-.title, .url {
-  height: 80%;
-}
-
-.owner, .date {
-  height: 20%;
-}
 
 .logPost {
   background: red;

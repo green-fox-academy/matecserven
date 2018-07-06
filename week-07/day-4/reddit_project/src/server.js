@@ -94,27 +94,26 @@ app.put('/api/posts/:id/upvote', (req, res) => {
             res.status(500).send();
             return;
           }
-        });
 
-        sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+          sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            sql = `SELECT * FROM posts WHERE id = ${id}`;
 
-        conn.query(sql, (err, rows) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send();
-            return;
-          }
-        });
-        sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send();
-            return;
-          }
-          res.json({
-            rows,
+            conn.query(sql, (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+              }
+              res.json({
+                rows,
+              });
+            });
           });
         });
       } else {
@@ -127,52 +126,51 @@ app.put('/api/posts/:id/upvote', (req, res) => {
             res.status(500).send();
             return;
           }
+          if (vote === -1) {
+            sql = `UPDATE posts SET score = score + 2 WHERE id = ${id}`;
+
+            conn.query(sql, (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+              }
+              sql = `SELECT * FROM posts WHERE id = ${id}`;
+              conn.query(sql, (err, rows) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send();
+                  return;
+                }
+                res.json({
+                  rows,
+                });
+              });
+            });
+          } else if (vote === 0) {
+            sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+
+            conn.query(sql, (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+              }
+              sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+              conn.query(sql, (err, rows) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send();
+                  return;
+                }
+                res.json({
+                  rows,
+                });
+              });
+            });
+          }
         });
-        if (vote === -1) {
-          sql = `UPDATE posts SET score = score + 2 WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-          });
-          sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-            res.json({
-              rows,
-            });
-          });
-        } else if (vote === 0) {
-          sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-          });
-          sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-            res.json({
-              rows,
-            });
-          });
-        }
       }
     } else {
 
@@ -184,27 +182,26 @@ app.put('/api/posts/:id/upvote', (req, res) => {
           res.status(500).send();
           return;
         }
-      });
+        sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
 
-      sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
 
-      conn.query(sql, (err, rows) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send();
-          return;
-        }
-      });
-      sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-      conn.query(sql, (err, rows) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send();
-          return;
-        }
-        res.json({
-          rows,
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
         });
       });
     }
@@ -235,27 +232,25 @@ app.put('/api/posts/:id/downvote', (req, res) => {
             res.status(500).send();
             return;
           }
-        });
+          sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            sql = `SELECT * FROM posts WHERE id = ${id}`;
 
-        sql = `UPDATE posts SET score = score + 1 WHERE id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send();
-            return;
-          }
-        });
-        sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-        conn.query(sql, (err, rows) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send();
-            return;
-          }
-          res.json({
-            rows,
+            conn.query(sql, (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+              }
+              res.json({
+                rows,
+              });
+            });
           });
         });
       } else {
@@ -267,52 +262,52 @@ app.put('/api/posts/:id/downvote', (req, res) => {
             res.status(500).send();
             return;
           }
+          if (vote === 1) {
+            sql = `UPDATE posts SET score = score - 2 WHERE id = ${id}`;
+
+            conn.query(sql, (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+              }
+              sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+              conn.query(sql, (err, rows) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send();
+                  return;
+                }
+                res.json({
+                  rows,
+                });
+              });
+            });
+          } else if (vote === 0) {
+            sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+
+            conn.query(sql, (err, rows) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send();
+                return;
+              }
+              sql = `SELECT * FROM posts WHERE id = ${id}`;
+
+              conn.query(sql, (err, rows) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send();
+                  return;
+                }
+                res.json({
+                  rows,
+                });
+              });
+            });
+          }
         });
-        if (vote === 1) {
-          sql = `UPDATE posts SET score = score - 2 WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-          });
-          sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-            res.json({
-              rows,
-            });
-          });
-        } else if (vote === 0) {
-          sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-          });
-          sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-          conn.query(sql, (err, rows) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send();
-              return;
-            }
-            res.json({
-              rows,
-            });
-          });
-        }
       }
     } else {
 
@@ -324,27 +319,25 @@ app.put('/api/posts/:id/downvote', (req, res) => {
           res.status(500).send();
           return;
         }
-      })
+        sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
+        conn.query(sql, (err, rows) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send();
+            return;
+          }
+          sql = `SELECT * FROM posts WHERE id = ${id}`;
 
-      sql = `UPDATE posts SET score = score - 1 WHERE id = ${id}`;
-
-      conn.query(sql, (err, rows) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send();
-          return;
-        }
-      });
-      sql = `SELECT * FROM posts WHERE id = ${id}`;
-
-      conn.query(sql, (err, rows) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send();
-          return;
-        }
-        res.json({
-          rows,
+          conn.query(sql, (err, rows) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send();
+              return;
+            }
+            res.json({
+              rows,
+            });
+          });
         });
       });
     }
