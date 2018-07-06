@@ -4,6 +4,11 @@ const http = new XMLHttpRequest();
 const host = 'http://localhost:3000';
 const postList = document.querySelector('.postList');
 const newPostButton = document.querySelector('#createPostButton');
+const userlogin = document.querySelector('.userlogin');
+const logForm = document.querySelector('.userloginForm');
+const logout = document.querySelector('.userlogout');
+const userinputName = document.querySelector('.user');
+const loggedIn = document.querySelector('.loggedIn');
 
 function createPost(element) {
   //make these buttons
@@ -85,7 +90,7 @@ postList.addEventListener('click', event => {
   const id = event.target.dataset.id;
   if (event.target.classList.value === 'upvote') {
     http.open('PUT', `${host}/api/posts/${id}/upvote`, true);
-    http.setRequestHeader('username', 'user1');
+    http.setRequestHeader('username', localStorage.getItem('username'));
     http.onload = () => {
       const response = JSON.parse(http.responseText);
       const scoreValue = document.querySelector(`.post[data-id="${id}"] .scoreValue`);
@@ -101,7 +106,7 @@ postList.addEventListener('click', event => {
   }
   if (event.target.classList.value === 'downvote') {
     http.open('PUT', `${host}/api/posts/${id}/downvote`, true);
-    http.setRequestHeader('username', 'user1');
+    http.setRequestHeader('username', localStorage.getItem('username'));
     http.onload = () => {
       const response = JSON.parse(http.responseText);
       const scoreValue = document.querySelector(`.post[data-id="${id}"] .scoreValue`);
@@ -117,10 +122,9 @@ postList.addEventListener('click', event => {
   }
   if (event.target.classList.value === 'delete') {
     http.open('DELETE', `${host}/api/posts/${id}`, true);
-    http.setRequestHeader('username', 'Mate');
+    http.setRequestHeader('username', localStorage.getItem('username'));
     http.onload = () => {
       const response = JSON.parse(http.responseText);
-      console.log(response);
       if (response.deleted) {
         postList.removeChild(document.querySelector(`.post[data-id="${id}"]`));
       } else {
@@ -129,4 +133,19 @@ postList.addEventListener('click', event => {
     }
     http.send();
   }
+});
+
+userlogin.addEventListener('click', event => {
+  event.preventDefault();
+  localStorage.setItem('username', userinputName.value);
+  logForm.setAttribute('hidden', '');
+  loggedIn.removeAttribute('hidden');
+
+});
+
+logout.addEventListener('click', () => {
+  localStorage.clear();
+  logForm.removeAttribute('hidden');
+  loggedIn.setAttribute('hidden', '');
+  document.querySelector('.user').value = '';
 });

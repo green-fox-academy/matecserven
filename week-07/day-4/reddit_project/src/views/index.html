@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8"/>
-<title>Fake Reddit</title>
-<link rel="stylesheet" type="text/css" href="/static/css/style.css" />
-<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+  <meta charset="utf-8" />
+  <title>Fake Reddit</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
 </head>
 
 <body>
@@ -17,14 +17,21 @@
     <div class="container">
       <div class="postList"></div>
       <div class="logPost">
-        <a href="views/createPost.html">
-        <button id="createPostButton">Create new post</button>
-        </a>
+        <div class="loggedIn" hidden>
+          <a href="views/createPost.html">
+            <button id="createPostButton">Create new post</button>
+          </a>
+          <button class="userlogout">Log out</button>
+        </div>
+        <div class="userloginForm">
+          <input type="text" class="user">
+          <button class="userlogin">Log in</button>
+        </div>
       </div>
     </div>
 
   </main>
-  <script src ="/static/js/index.js"></script>
+  <script src="/static/js/index.js"></script>
 </body>
 
 </html>

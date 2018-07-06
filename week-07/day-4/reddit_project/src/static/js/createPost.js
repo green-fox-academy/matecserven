@@ -9,7 +9,7 @@ newPost.addEventListener('submit', event => {
   const elements = event.target.elements;
   http.open('POST', `${host}/api/posts`, true);
   http.setRequestHeader('Content-Type', 'application/json');
-  http.setRequestHeader('username', 'user4');
+  http.setRequestHeader('username', localStorage.getItem('username'));
   http.onload = () => {
     window.location = `${host}`;
   }
