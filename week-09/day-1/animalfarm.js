@@ -1,5 +1,8 @@
 'use strict';
 
+const h1 = document.querySelector('h1');
+const button = document.querySelector('button');
+
 function Animal() {
   this.hunger = 5;
   this.thirst = 5;
@@ -36,14 +39,13 @@ function Farm(slots) {
 
   this.print = function() {
     if (this.animals.length > 0) {
-      console.log(`The farm has ${this.animals.length} living animals`);
       if (this.animals.length !== this.slots) {
-        console.log('The farm is okay');
+        return `The farm has ${this.animals.length} living animals. The farm is okay.`;
       } else {
-        console.log('The farm is full');
+        return `The farm has ${this.animals.length} living animals. The farm is full.`;
       }
     } else {
-      console.log('The farm is bankrupt');
+      return 'The farm is bankrupt';
     }
   }
 
@@ -59,14 +61,14 @@ function Farm(slots) {
         animal.play();
       }
     });
-    
+
     //50% chance to breed or slaughter, makes no sense to do both
     if (Math.random() < 0.5) {
       this.slaugther();
     } else {
        this.breed();
     }
-    this.print();
+    h1.textContent = this.print();
   }
 
   for (let i = 0; i < this.slots; i++) {
@@ -75,8 +77,8 @@ function Farm(slots) {
 }
 
 const SheepFarm = new Farm(20);
-SheepFarm.progress();
-SheepFarm.progress();
-SheepFarm.progress();
-SheepFarm.progress();
-console.log(SheepFarm.animals);
+h1.textContent = SheepFarm.print();
+
+button.addEventListener('click', () => {
+  SheepFarm.progress();
+});
