@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Simple Row</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .container {
+      display: grid;
+      height: 800px;
+      width: 100%;
+    }
+    header {
+      background: purple;
+      width: 100%;
+      height: 100px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-left: 10%;
+    }
+    header > div {
+      background: cyan;
+      width: 80px;
+      height: 40px;
+      margin-right: 20px;
+    }
+    .content {
+      height: 700px;
+      width: 800px;
+      display: grid;
+      grid-template: 1fr 20% / 1fr 70%;
+      gap: 10px;
+      padding: 10px;
+      margin: 0 auto;
+    }
+    aside {
+      background: green;
+    }
+    main {
+      background: yellow;
+    }
+    footer {
+      background: lightblue;
+      grid-area: 2 / 1 / 3 / 3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </header>
+    <div class="content">
+      <aside></aside>
+      <main></main>
+      <footer></footer>
+    </div>
+  </div>
+</body>
+
+</html>
