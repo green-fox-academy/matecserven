@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Big Area</title>
+  <style>
+    .container {
+      display: grid;
+      background: blue;
+      height: 400px;
+      width: 100%;
+      gap: 20px;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+    }
+
+    .one {
+      background: green;
+      grid-area: 1 / 2 / 3 / 4;
+      display: grid;
+      place-items: center center;
+    }
+
+    .nest {
+      background: yellow;
+      width: 70%;
+      height: 70%;
+    }
+
+    .two,
+    .three,
+    .four,
+    .five,
+    .six {
+      background: purple;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="one">
+      
+      <div class="nest">
+        1+1
+      </div>
+    </div>
+    <div class="two">2</div>
+    <div class="three">3</div>
+    <div class="four">4</div>
+    <div class="five">5</div>
+    <div class="six">6</div>
+  </div>
+</body>
+
+</html>
