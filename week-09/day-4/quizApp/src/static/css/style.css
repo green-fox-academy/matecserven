@@ -42,19 +42,24 @@ main {
   font-size: 30px;
 }
 
-.manageQue {
+.manageQue, .createNew {
   background: white;
   width: 100%;
   min-height: 200px;
+  margin-bottom: 20px;
+  padding: 10px;
 }
 
 h1 {
   text-align: center;
 }
 
+h2 {
+  margin-top: 10px;
+}
+
 .questionListed {
   margin-bottom: 10px;
-  margin-left: 20px;
   font-size: 20px;
   width: 80%;
 }
@@ -68,4 +73,21 @@ button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.newAnswer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.giveAnswer {
+  flex: 1;
+}
+
+form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
 }
