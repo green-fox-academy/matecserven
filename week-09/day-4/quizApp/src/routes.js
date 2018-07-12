@@ -90,7 +90,7 @@ app.post('/questions', (req, res) => {
   let answ3corr = req.body.answ3corr;
   let answ4 = req.body.answ4;
   let answ4corr = req.body.answ4corr;
-  
+
   let sqlQuestion = `INSERT INTO questions (question) VALUES ('${question}')`;
 
   conn.query(sqlQuestion, (err, rows) => {
@@ -106,7 +106,25 @@ app.post('/questions', (req, res) => {
         res.status(500).send();
         return;
       }
-      res.send(rows);
+      res.send({
+        status: 'Question added.'
+      });
+    });
+  });
+});
+
+app.delete('/questions/:id', (req, res) => {
+
+  let sql = `DELETE question, answers FROM questions as question JOIN answers as answers ON question.id = answers.question_id  WHERE question_id = ${req.params.id};`;
+
+  conn.query(sql, (err, rows) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send();
+      return;
+    }
+    res.send({
+      deleted: rows
     });
   });
 });
