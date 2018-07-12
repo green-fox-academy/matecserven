@@ -23,7 +23,7 @@ const listQue = (element) => {
   const questRow = document.createElement('div');
   questRow.className = 'questRow';
   manageQ.appendChild(questRow);
-  
+
   const quest = document.createElement('div');
   quest.textContent = element.question;
   quest.className = 'questionListed';
@@ -33,4 +33,17 @@ const listQue = (element) => {
   button.dataset.id = element.id;
   button.textContent = 'Delete';
   questRow.appendChild(button);
+}
+
+manageQ.addEventListener('click', (event) => {
+  event.preventDefault();
+  deleteQuestion(event.target.dataset.id);
+})
+
+const deleteQuestion = (id) => {
+  http.open('DELETE', `${host}/questions/${id}`);
+  http.onload = () => {
+    window.location = `${host}/views/manage.html`;
+  }
+  http.send();
 }
