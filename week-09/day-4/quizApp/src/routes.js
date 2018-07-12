@@ -3,6 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
+const path = require('path');
 const app = express();
 
 app.use(express.json());
@@ -17,7 +18,7 @@ const conn = mysql.createConnection({
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile(path.join(__dirname, '/views/index.html'));
 });
 
 app.get('/game', (req, res) => {
