@@ -8,7 +8,7 @@ body {
 }
 
 main {
-  width: 600px;
+  width: 80%;
   margin: 50px auto;
   display: flex;
   flex-direction: column;
@@ -40,4 +40,32 @@ main {
   justify-content: center;
   color: white;
   font-size: 30px;
+}
+
+.manageQue {
+  background: white;
+  width: 100%;
+  min-height: 200px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.questionListed {
+  margin-bottom: 10px;
+  margin-left: 20px;
+  font-size: 20px;
+  width: 80%;
+}
+
+button {
+  width: 80px;
+  height: 30px;
+}
+
+.questRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
