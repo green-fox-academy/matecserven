@@ -21,14 +21,12 @@ class BeerTile extends Component {
         <div className="content" onClick={this.handleClick}>
           {this.state.isToggleOn ?
             <p>{this.props.description}</p>
-            : <img src={this.props.imgUrl} alt="beer" />}
+            : <img src={this.props.imgUrl} alt={this.props.name} />}
         </div>
         <p>{this.props.name}</p>
       </div>
     )
   }
 }
-
-
 
 export default BeerTile;
