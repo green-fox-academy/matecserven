@@ -39,6 +39,7 @@ class App extends Component {
     console.log(page);
     this.setState({
       current: page,
+      beerSelected: undefined
     }, this.getBeers);
   }
 
