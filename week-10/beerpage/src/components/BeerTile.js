@@ -1,32 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class BeerTile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isToggleOn: false
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState(prevState => ({
-      isToggleOn: !prevState.isToggleOn
-    }));
-  }
-
-  render() {
-    return (
-      <div className="card">
-        <div className="content" onClick={this.handleClick}>
-          {this.state.isToggleOn ?
-            <p>{this.props.description}</p>
-            : <img src={this.props.imgUrl} alt={this.props.name} />}
-        </div>
-        <p>{this.props.name}</p>
-      </div>
-    )
-  }
-}
+const BeerTile = (props) => (
+  <div className="card" id={props.id} onClick={props.onClick}>
+    <div className="content">
+      {props.selected == props.id ?
+        <p>{props.description}</p>
+        : <img src={props.imgUrl} alt={props.name} />}
+    </div>
+    <p>{props.name}</p>
+  </div>
+)
 
 export default BeerTile;

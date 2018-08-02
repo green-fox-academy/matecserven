@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
 import Tileset from './components/Tileset';
-import Paginator from './components/Paginator';
+import { Pagination } from 'antd';
 
 class App extends Component {
   state = {
     beerlist: [],
-    page: 1
+    current: 1,
+    beerSelected: undefined
   }
 
-  getBeers = (e) => {
-    if (e) {
-      e.preventDefault();
-      const page = e.target.elements.dataset.id;
-      this.setState({
-        state: page
-      });
-    }
-    fetch(`https://api.punkapi.com/v2/beers?page=${this.state.page}&per_page=8`)
-      .then(response => response.json())
+  getBeers = () => {
+    fetch(`https://api.punkapi.com/v2/beers?page=${this.state.current}&per_page=8`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Wrong API');
+        }
+      })
       .then(data => {
         console.log(data);
         this.setState({
@@ -26,22 +26,39 @@ class App extends Component {
         });
         console.log(this.state.beerlist);
       })
+      .catch((error) => {
+        console.log(error)
+      });
   }
 
   componentDidMount() {
     this.getBeers();
   }
 
+  onChange = (page) => {
+    console.log(page);
+    this.setState({
+      current: page,
+    }, this.getBeers);
+  }
+
+  handleClick = (e) => {
+    const selected = e.currentTarget.id;
+    this.setState({
+      beerSelected: selected
+    });
+    console.log(e.currentTarget.state);
+  }
+
   render() {
     return (
       <div className="main">
         <Header />
-        <Tileset list={this.state.beerlist} />
-        <Paginator getBeers={this.getBeers}/>
+        <Tileset list={this.state.beerlist} onClick={this.handleClick} selected={this.state.beerSelected}/>
+        <Pagination current={this.state.current} onChange={this.onChange} total={50} />
       </div>
     );
   }
-
 }
 
 export default App;

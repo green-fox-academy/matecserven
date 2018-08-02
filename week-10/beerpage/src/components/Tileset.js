@@ -8,9 +8,12 @@ const Tileset = (props) => (
         return (
           <BeerTile
             key={i}
+            id={i}
             name={element.name}
             imgUrl={element.image_url}
             description={element.description}
+            onClick={props.onClick}
+            selected={props.selected}
           />
         );
       })
