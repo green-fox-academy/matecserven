@@ -2,7 +2,7 @@ import React from 'react';
 import BeerTile from './BeerTile';
 
 const Tileset = (props) => (
-  <div>
+  <div className="container">
     {
       props.list.map((element, i) => {
         return (

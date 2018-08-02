@@ -5,11 +5,19 @@ import Paginator from './components/Paginator';
 
 class App extends Component {
   state = {
-    beerlist: []
+    beerlist: [],
+    page: 1
   }
 
-  getBeers = () => {
-    fetch('https://api.punkapi.com/v2/beers?per_page=8')
+  getBeers = (e) => {
+    if (e) {
+      e.preventDefault();
+      const page = e.target.elements.dataset.id;
+      this.setState({
+        state: page
+      });
+    }
+    fetch(`https://api.punkapi.com/v2/beers?page=${this.state.page}&per_page=8`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -26,10 +34,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <Header />
         <Tileset list={this.state.beerlist} />
-        <Paginator />
+        <Paginator getBeers={this.getBeers}/>
       </div>
     );
   }
