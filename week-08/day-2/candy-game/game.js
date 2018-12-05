@@ -26,16 +26,6 @@ buyLolly.addEventListener('click', () => {
     candy.textContent = `${candies}`;
   }
 });
-/*
-candyRain.addEventListener('click', () => {
-  if (!isItRaining) {
-    rain *= 10;
-    speed.textContent = `${speedy * 10}`;
-  } else {
-    rain %= 10;
-    speed.textContent = `${speedy % 10}`;
-  }
-})*/
 
 setInterval(() => {
   if (lolly % 2 === 0) {
