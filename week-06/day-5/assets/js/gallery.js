@@ -14,16 +14,16 @@ const images = [
   { name: 'Husky', desc: 'Picture of a husky', src: 'husky-dog-white.jpg'},
 ]
 
-pic.setAttribute('src', '/images/'.concat(images[picPos].src));
+pic.setAttribute('src', '/assets/images/'.concat(images[picPos].src));
 picName.textContent = images[picPos].name;
 picDesc.textContent = images[picPos].desc;
 
 images.forEach((dog, index) => {
   const newPic = document.createElement('img');
-  newPic.setAttribute('src', '/images/'.concat(dog.src));
+  newPic.setAttribute('src', '/assets/images/'.concat(dog.src));
   newPic.classList.add('thumbs');
   newPic.onclick = () => {
-    document.querySelector('.pic').setAttribute('src', '/images/'.concat(dog.src));
+    document.querySelector('.pic').setAttribute('src', '/assets/images/'.concat(dog.src));
     picPos = index;
   }
   newPic.onmouseover = () => {
@@ -37,7 +37,7 @@ rightArrow.onclick = () => {
   if (picPos >= images.length) {
     picPos = 0;
   }
-  pic.setAttribute('src', '/images/'.concat(images[picPos].src));
+  pic.setAttribute('src', '/assets/images/'.concat(images[picPos].src));
   picName.textContent = images[picPos].name;
   picDesc.textContent = images[picPos].desc;
 
@@ -48,7 +48,7 @@ leftArrow.onclick = () => {
   if (picPos < 0) {
     picPos = images.length - 1;
   }
-  pic.setAttribute('src', '/images/'.concat(images[picPos].src));
+  pic.setAttribute('src', '/assets/images/'.concat(images[picPos].src));
   picName.textContent = images[picPos].name;
   picDesc.textContent = images[picPos].desc;
 };
